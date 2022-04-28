@@ -92,6 +92,9 @@ public class Login extends JFrame {
         
         btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 22));
         btnLogin.setBounds(180, 300, 259, 74);
+        btnLogin.addActionListener(e -> {
+            setContentPane(loginPanel());
+        });
         contentPane.add(btnLogin);
 
         btnCreateAccount.setFont(new Font("Tahoma", Font.PLAIN, 22));
@@ -112,10 +115,6 @@ public class Login extends JFrame {
         signUpPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         signUpPanel.setBounds(new Rectangle(1014, 597));
         signUpPanel.setLayout(null);
-
-        JLabel youDoneMessedUpKid = new JLabel("Error: Passwords do not match!");
-        youDoneMessedUpKid.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        youDoneMessedUpKid.setBounds(200, 300, 1000, 30);
 
         JLabel signUpLabel = new JLabel("Sign Up for a Best Buy Account");
         signUpLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
@@ -174,6 +173,58 @@ public class Login extends JFrame {
         signUpPanel.add(button);
 
         return signUpPanel;
+    }
+
+    // login panel
+    private JPanel loginPanel() {
+        JPanel loginPanel = new JPanel();
+        loginPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        loginPanel.setBounds(new Rectangle(1014, 597));
+        loginPanel.setLayout(null);
+
+        JLabel loginLabel = new JLabel("Please enter login info:");
+        loginLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
+        loginLabel.setBounds(320, 0, 1000, 75);
+        loginPanel.add(loginLabel);
+
+        // email address = username
+        JLabel usernameLabel = new JLabel("Email Address:");
+        usernameLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        usernameLabel.setBounds(335, 100, 1000, 30);
+        loginPanel.add(usernameLabel);
+        TextField username = new TextField();
+        username.setBounds(335, 140, 420, 30);
+        username.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        loginPanel.add(username);
+
+        // password
+        JLabel pwLabel = new JLabel("Password:");
+        pwLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        pwLabel.setBounds(335, 200, 1000, 30);
+        loginPanel.add(pwLabel);
+        JPasswordField pw1 = new JPasswordField(20);
+        pw1.setBounds(335, 240, 420, 30);
+        pw1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        loginPanel.add(pw1);
+
+        JButton button = new JButton("Login");
+        button.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        button.setBounds(420, 340, 259, 74);
+        button.addActionListener(e -> {
+            System.out.println("Poggers!");
+            System.out.println(username.getText());
+            System.out.println(pw1.getText());
+
+            if (!username.getText().endsWith(".com") && !username.getText().contains("@")) {
+                loginLabel.setText("Error: Invalid Email!");
+            } else {
+                // make this go to the product page when it is done!
+                setContentPane(contentPane);
+            }
+        });
+        loginPanel.add(button);
+
+        return loginPanel;
     }
 
 }
