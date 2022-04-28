@@ -83,6 +83,6 @@ Create table order {
 Create table shipper{
     shipperID int,
     shipperStatus varchar(64),
-    trackingNumber int
-    primary key (shipperID),
+    trackingNumber int,
+    primary key (shipperID)
 }; 
