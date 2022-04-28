@@ -162,7 +162,9 @@ public class Login extends JFrame {
             System.out.println(pw1.getText());
             System.out.println(pw2.getText());
 
-            if (!pw1.equals(pw2)) {
+            if (!username.getText().endsWith(".com") && !username.getText().contains("@")) {
+                signUpLabel.setText("Error: Invalid Email!");
+            } else if (!pw1.getText().equals(pw2.getText())) {
                 signUpLabel.setText("Error: Passwords do not match!");
             } else {
                 // make this go to the product page when it is done!
