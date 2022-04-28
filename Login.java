@@ -16,12 +16,15 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * User Registration using Swing
  * @author javaguides.net
  *
  */
-public class UserRegistration extends JFrame {
+public class Login extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JTextField firstname;
@@ -31,6 +34,9 @@ public class UserRegistration extends JFrame {
     private JTextField mob;
     private JPasswordField passwordField;
     private JButton btnNewButton;
+    private JButton btnLogin;
+    private JButton btnCreateAccount;
+    private JButton btnskip;
 
     /**
      * Launch the application.
@@ -39,7 +45,7 @@ public class UserRegistration extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    UserRegistration frame = new UserRegistration();
+                    Login frame = new Login();
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -52,88 +58,32 @@ public class UserRegistration extends JFrame {
      * Create the frame.
      */
 
-    public UserRegistration() {
+    public Login() {
         setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\User\\Desktop\\STDM.jpg"));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(450, 190, 1014, 597);
+        setBounds(0, 0, 1014, 597);
         setResizable(false);
+        setTitle("This is Best Buy Sir");
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
-
-        JLabel lblNewUserRegister = new JLabel("New User Register");
-        lblNewUserRegister.setFont(new Font("Times New Roman", Font.PLAIN, 42));
-        lblNewUserRegister.setBounds(362, 52, 325, 50);
-        contentPane.add(lblNewUserRegister);
-
-        JLabel lblName = new JLabel("First name");
-        lblName.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        lblName.setBounds(58, 152, 99, 43);
-        contentPane.add(lblName);
-
-        JLabel lblNewLabel = new JLabel("Last name");
-        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        lblNewLabel.setBounds(58, 243, 110, 29);
-        contentPane.add(lblNewLabel);
-
-        JLabel lblEmailAddress = new JLabel("Email\r\n address");
-        lblEmailAddress.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        lblEmailAddress.setBounds(58, 324, 124, 36);
-        contentPane.add(lblEmailAddress);
-
-        firstname = new JTextField();
-        firstname.setFont(new Font("Tahoma", Font.PLAIN, 32));
-        firstname.setBounds(214, 151, 228, 50);
-        contentPane.add(firstname);
-        firstname.setColumns(10);
-
-        lastname = new JTextField();
-        lastname.setFont(new Font("Tahoma", Font.PLAIN, 32));
-        lastname.setBounds(214, 235, 228, 50);
-        contentPane.add(lastname);
-        lastname.setColumns(10);
-
-        email = new JTextField();
-
-        email.setFont(new Font("Tahoma", Font.PLAIN, 32));
-        email.setBounds(214, 320, 228, 50);
-        contentPane.add(email);
-        email.setColumns(10);
-
-        username = new JTextField();
-        username.setFont(new Font("Tahoma", Font.PLAIN, 32));
-        username.setBounds(707, 151, 228, 50);
-        contentPane.add(username);
-        username.setColumns(10);
-
-        JLabel lblUsername = new JLabel("Username");
-        lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        lblUsername.setBounds(542, 159, 99, 29);
-        contentPane.add(lblUsername);
-
-        JLabel lblPassword = new JLabel("Password");
-        lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        lblPassword.setBounds(542, 245, 99, 24);
-        contentPane.add(lblPassword);
-
-        JLabel lblMobileNumber = new JLabel("Mobile number");
-        lblMobileNumber.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        lblMobileNumber.setBounds(542, 329, 139, 26);
-        contentPane.add(lblMobileNumber);
-
-        mob = new JTextField();
-        mob.setFont(new Font("Tahoma", Font.PLAIN, 32));
-        mob.setBounds(707, 320, 228, 50);
-        contentPane.add(mob);
-        mob.setColumns(10);
-
-        passwordField = new JPasswordField();
-        passwordField.setFont(new Font("Tahoma", Font.PLAIN, 32));
-        passwordField.setBounds(707, 235, 228, 50);
-        contentPane.add(passwordField);
-
+        
+        JButton send = new JButton("Send");
+        JButton reset = new JButton("Reset");
+        contentPane.add(send);
+        contentPane.add(reset);
+        btnLogin = new JButton("Login");
+        btnLogin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("test");
+            }
+        });
+        btnCreateAccount = new JButton("CreateAccount");
+        btnskip = new JButton("skip");
         btnNewButton = new JButton("Register");
+        
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String firstName = firstname.getText();
@@ -173,5 +123,54 @@ public class UserRegistration extends JFrame {
         btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 22));
         btnNewButton.setBounds(399, 447, 259, 74);
         contentPane.add(btnNewButton);
+
+        
+        btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 22));
+        btnLogin.setBounds(0, 447, 259, 74);
+        contentPane.add(btnLogin);
+
+        btnCreateAccount.setFont(new Font("Tahoma", Font.PLAIN, 22));
+        btnCreateAccount.setBounds(399, 350, 259, 74);
+        btnCreateAccount.addActionListener(e -> {
+            setContentPane(setSignUpPanel());
+            pack();
+        });
+        contentPane.add(btnCreateAccount);
+
+        btnskip.setFont(new Font("Tahoma", Font.PLAIN, 22));
+        btnskip.setBounds(399, 200, 259, 74);
+        contentPane.add(btnskip);
     }
+
+    private JPanel setSignUpPanel() {
+        JPanel signUpPanel = new JPanel();
+        signUpPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        signUpPanel.setLayout(new GridLayout(0, 1));
+        signUpPanel.add(new JLabel("Test Sign Up"));
+
+        signUpPanel.add(new JLabel("Username:"));
+        TextField username = new TextField(20);
+        signUpPanel.add(username);
+
+        signUpPanel.add(new JLabel("Password:"));
+        JPasswordField pw1 = new JPasswordField(20);
+        signUpPanel.add(pw1);
+
+        signUpPanel.add(new JLabel("Confirm Password:"));
+        JPasswordField pw2 = new JPasswordField(20);
+        signUpPanel.add(pw2);
+
+        signUpPanel.add(new JLabel());
+        JButton button = new JButton("Create Account");
+        button.addActionListener(e -> {
+            System.out.println("Poggers!");
+            System.out.println(username.getText());
+            System.out.println(pw1.getText());
+            System.out.println(pw2.getText());
+        });
+        signUpPanel.add(button);
+
+        return signUpPanel;
+    }
+
 }
