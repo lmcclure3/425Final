@@ -98,7 +98,6 @@ public class Login extends JFrame {
         btnCreateAccount.setBounds(580, 300, 259, 74);
         btnCreateAccount.addActionListener(e -> {
             setContentPane(setSignUpPanel());
-            pack();
         });
         contentPane.add(btnCreateAccount);
 
@@ -107,27 +106,52 @@ public class Login extends JFrame {
         contentPane.add(btnGuest);
     }
 
+    //todo center
     private JPanel setSignUpPanel() {
         JPanel signUpPanel = new JPanel();
-        signUpPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        signUpPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        signUpPanel.setBounds(new Rectangle(1014, 597));
         signUpPanel.setLayout(null);
-        signUpPanel.add(new JLabel("Test Sign Up"));
 
-        JLabel usernameLabel = new JLabel("Username:");
+        JLabel signUpLabel = new JLabel("Sign Up for a Best Buy Account");
+        signUpLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
+        signUpLabel.setBounds(320, 0, 1000, 75);
+        signUpPanel.add(signUpLabel);
+
+        // email address = username
+        JLabel usernameLabel = new JLabel("Email Address:");
+        usernameLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        usernameLabel.setBounds(335, 100, 1000, 30);
         signUpPanel.add(usernameLabel);
-        TextField username = new TextField(20);
+        TextField username = new TextField();
+        username.setBounds(335, 140, 420, 30);
+        username.setFont(new Font("Tahoma", Font.PLAIN, 20));
         signUpPanel.add(username);
 
-        signUpPanel.add(new JLabel("Password:"));
+        // password
+        JLabel pwLabel = new JLabel("Password:");
+        pwLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        pwLabel.setBounds(335, 200, 1000, 30);
+        signUpPanel.add(pwLabel);
         JPasswordField pw1 = new JPasswordField(20);
+        pw1.setBounds(335, 240, 420, 30);
+        pw1.setFont(new Font("Tahoma", Font.PLAIN, 20));
         signUpPanel.add(pw1);
 
-        signUpPanel.add(new JLabel("Confirm Password:"));
+        // confirm password
+        JLabel confirmLabel = new JLabel("Confirm Password:");
+        confirmLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        confirmLabel.setBounds(335, 300, 1000, 30);
+        signUpPanel.add(confirmLabel);
         JPasswordField pw2 = new JPasswordField(20);
+        pw2.setBounds(335, 340, 420, 30);
+        pw2.setFont(new Font("Tahoma", Font.PLAIN, 20));
         signUpPanel.add(pw2);
 
         signUpPanel.add(new JLabel());
         JButton button = new JButton("Create Account");
+        button.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        button.setBounds(420, 420, 259, 74);
         button.addActionListener(e -> {
             System.out.println("Poggers!");
             System.out.println(username.getText());
