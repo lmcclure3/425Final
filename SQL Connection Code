@@ -1,0 +1,20 @@
+public static void main (String[] args) throws SQLException{
+        try{
+        Connection con = DriverManager.getConnection("jdbc:oracle://localhost:1521/orcl", "hr", "oracle"); //connection, username, password
+        System.out.println ("Connection Successful");
+        String email = email.getText(); //get text from input
+        String firstName = firstName.getText();
+        String lastName = lastName.getText();
+        String username = username.getText();
+        String password = password.getText();
+        String mobileNumber = mobileNumber.getText();
+        String query = "INSERT INTO customers values ('" + email + "','" + firstName + "','" + lastName + 
+        "','" + username + "','" + password + "','" + mobileNumber + "')";//create query to insert customer info into customers table
+        Statement state = con.createStatement();
+        int rows = statement.executeUpdate(query); //insert row, can check if exists already or if row was inserted
+        con.close();
+
+        }
+        catch (SQLException e){
+            e.printStackTrace(); //prints error
+        }
