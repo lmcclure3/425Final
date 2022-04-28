@@ -113,6 +113,10 @@ public class Login extends JFrame {
         signUpPanel.setBounds(new Rectangle(1014, 597));
         signUpPanel.setLayout(null);
 
+        JLabel youDoneMessedUpKid = new JLabel("Error: Passwords do not match!");
+        youDoneMessedUpKid.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        youDoneMessedUpKid.setBounds(200, 300, 1000, 30);
+
         JLabel signUpLabel = new JLabel("Sign Up for a Best Buy Account");
         signUpLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
         signUpLabel.setBounds(320, 0, 1000, 75);
@@ -157,6 +161,13 @@ public class Login extends JFrame {
             System.out.println(username.getText());
             System.out.println(pw1.getText());
             System.out.println(pw2.getText());
+
+            if (!pw1.equals(pw2)) {
+                signUpLabel.setText("Error: Passwords do not match!");
+            } else {
+                // make this go to the product page when it is done!
+                setContentPane(contentPane);
+            }
         });
         signUpPanel.add(button);
 
