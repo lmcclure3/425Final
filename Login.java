@@ -36,7 +36,7 @@ public class Login extends JFrame {
     private JButton btnNewButton;
     private JButton btnLogin;
     private JButton btnCreateAccount;
-    private JButton btnskip;
+    private JButton btnGuest;
 
     /**
      * Launch the application.
@@ -73,6 +73,12 @@ public class Login extends JFrame {
         JButton reset = new JButton("Reset");
         contentPane.add(send);
         contentPane.add(reset);
+
+        JLabel welcomeMessage = new JLabel("Welcome to Best Buy Online!");
+        contentPane.add(welcomeMessage);
+        welcomeMessage.setFont(new Font("Tahoma", Font.PLAIN, 42));
+        welcomeMessage.setBounds(235, 100, 1000, 74);
+
         btnLogin = new JButton("Login");
         btnLogin.addActionListener(new ActionListener() {
             @Override
@@ -80,75 +86,35 @@ public class Login extends JFrame {
                 System.out.println("test");
             }
         });
-        btnCreateAccount = new JButton("CreateAccount");
-        btnskip = new JButton("skip");
-        btnNewButton = new JButton("Register");
-        
-        btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String firstName = firstname.getText();
-                String lastName = lastname.getText();
-                String emailId = email.getText();
-                String userName = username.getText();
-                String mobileNumber = mob.getText();
-                int len = mobileNumber.length();
-                String password = passwordField.getText(); 
-
-                String msg = "" + firstName;
-                msg += " \n";
-                if (len != 10) {
-                    JOptionPane.showMessageDialog(btnNewButton, "Enter a valid mobile number");
-                }
-
-                try {
-                    Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/swing_demo", "root", "root");
-
-                    String query = "INSERT INTO account values('" + firstName + "','" + lastName + "','" + userName + "','" +
-                        password + "','" + emailId + "','" + mobileNumber + "')";
-
-                    Statement sta = connection.createStatement();
-                    int x = sta.executeUpdate(query);
-                    if (x == 0) {
-                        JOptionPane.showMessageDialog(btnNewButton, "This is alredy exist");
-                    } else {
-                        JOptionPane.showMessageDialog(btnNewButton,
-                            "Welcome, " + msg + "Your account is sucessfully created");
-                    }
-                    connection.close();
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                }
-            }
-        });
-        btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 22));
-        btnNewButton.setBounds(399, 447, 259, 74);
-        contentPane.add(btnNewButton);
+        btnCreateAccount = new JButton("Create Account");
+        btnGuest = new JButton("Continue as Guest");
 
         
         btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 22));
-        btnLogin.setBounds(0, 447, 259, 74);
+        btnLogin.setBounds(180, 300, 259, 74);
         contentPane.add(btnLogin);
 
         btnCreateAccount.setFont(new Font("Tahoma", Font.PLAIN, 22));
-        btnCreateAccount.setBounds(399, 350, 259, 74);
+        btnCreateAccount.setBounds(580, 300, 259, 74);
         btnCreateAccount.addActionListener(e -> {
             setContentPane(setSignUpPanel());
             pack();
         });
         contentPane.add(btnCreateAccount);
 
-        btnskip.setFont(new Font("Tahoma", Font.PLAIN, 22));
-        btnskip.setBounds(399, 200, 259, 74);
-        contentPane.add(btnskip);
+        btnGuest.setFont(new Font("Tahoma", Font.PLAIN, 22));
+        btnGuest.setBounds(380, 420, 259, 74);
+        contentPane.add(btnGuest);
     }
 
     private JPanel setSignUpPanel() {
         JPanel signUpPanel = new JPanel();
         signUpPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        signUpPanel.setLayout(new GridLayout(0, 1));
+        signUpPanel.setLayout(null);
         signUpPanel.add(new JLabel("Test Sign Up"));
 
-        signUpPanel.add(new JLabel("Username:"));
+        JLabel usernameLabel = new JLabel("Username:");
+        signUpPanel.add(usernameLabel);
         TextField username = new TextField(20);
         signUpPanel.add(username);
 
