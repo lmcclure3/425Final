@@ -38,6 +38,8 @@ public class Login extends JFrame {
     private JButton btnCreateAccount;
     private JButton btnGuest;
 
+    private static final Font CLASS_FONT = new Font("Tahoma", Font.PLAIN, 20);
+
     /**
      * Launch the application.
      */
@@ -172,7 +174,7 @@ public class Login extends JFrame {
         signUpPanel.add(mobileField);
 
         signUpPanel.add(new JLabel());
-        JButton button = new JButton("Create Account");
+        JButton button = new JButton("Add Credit Card");
         button.setFont(new Font("Tahoma", Font.PLAIN, 20));
         button.setBounds(420, 420, 259, 74);
         button.addActionListener(e -> {
@@ -187,7 +189,7 @@ public class Login extends JFrame {
                 signUpLabel.setText("Error: Passwords do not match!");
             } else {
                 // make this go to the product page when it is done!
-                setContentPane(contentPane);
+                setContentPane(addCreditCardPanel());
             }
         });
         signUpPanel.add(button);
@@ -249,7 +251,110 @@ public class Login extends JFrame {
 
     // add card panel
     private JPanel addCreditCardPanel() {
-        return null;
+        JPanel ccPanel = new JPanel();
+        ccPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        ccPanel.setBounds(new Rectangle(1014, 597));
+        ccPanel.setLayout(null);
+
+        JLabel addCcLabel = new JLabel("Add a Credit Card:");
+        addCcLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
+        addCcLabel.setBounds(320, 0, 1000, 75);
+        ccPanel.add(addCcLabel);
+
+        // credit card number
+        JLabel numberLabel = new JLabel("Credit Card Number:");
+        numberLabel.setBounds(335, 100, 1000, 30);
+        numberLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        ccPanel.add(numberLabel);
+        TextField ccNumber = new TextField();
+        ccNumber.setBounds(335, 140, 420, 30);
+        ccNumber.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        ccPanel.add(ccNumber);
+
+        // expiration date
+        JLabel expLabel = new JLabel("Expiration Date:");
+        expLabel.setBounds(335, 200, 420, 30);
+        expLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        ccPanel.add(expLabel);
+        TextField expDate = new TextField();
+        expDate.setBounds(335, 240, 210, 30);
+        expDate.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        ccPanel.add(expDate);
+
+        // security code
+        JLabel secCodeLabel = new JLabel("Security Code:");
+        secCodeLabel.setBounds(555, 200, 420, 30);
+        secCodeLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        ccPanel.add(secCodeLabel);
+        TextField secCode = new TextField();
+        secCode.setBounds(555, 240, 210, 30);
+        secCode.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        ccPanel.add(secCode);
+
+        JButton button = new JButton("Finish Sign Up");
+        button.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        button.setBounds(420, 340, 259, 74);
+        button.addActionListener(e -> {
+            System.out.println("Poggers!");
+            setContentPane(contentPane);
+        });
+        ccPanel.add(button);
+
+        return ccPanel;
+    }
+
+    // credit card panel for guest checkouts
+    private JPanel addCreditCardPanelGuest() {
+        JPanel ccPanel = new JPanel();
+        ccPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        ccPanel.setBounds(new Rectangle(1014, 597));
+        ccPanel.setLayout(null);
+
+        JLabel addCcLabel = new JLabel("Add a Credit Card:");
+        addCcLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
+        addCcLabel.setBounds(320, 0, 1000, 75);
+        ccPanel.add(addCcLabel);
+
+        // credit card number
+        JLabel numberLabel = new JLabel("Credit Card Number:");
+        numberLabel.setBounds(335, 100, 1000, 30);
+        numberLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        ccPanel.add(numberLabel);
+        TextField ccNumber = new TextField();
+        ccNumber.setBounds(335, 140, 420, 30);
+        ccNumber.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        ccPanel.add(ccNumber);
+
+        // expiration date
+        JLabel expLabel = new JLabel("Expiration Date:");
+        expLabel.setBounds(335, 200, 420, 30);
+        expLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        ccPanel.add(expLabel);
+        TextField expDate = new TextField();
+        expDate.setBounds(335, 240, 210, 30);
+        expDate.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        ccPanel.add(expDate);
+
+        // security code
+        JLabel secCodeLabel = new JLabel("Security Code:");
+        secCodeLabel.setBounds(555, 200, 420, 30);
+        secCodeLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        ccPanel.add(secCodeLabel);
+        TextField secCode = new TextField();
+        secCode.setBounds(555, 240, 210, 30);
+        secCode.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        ccPanel.add(secCode);
+
+        JButton button = new JButton("Finish Check Out");
+        button.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        button.setBounds(420, 340, 259, 74);
+        button.addActionListener(e -> {
+            System.out.println("Poggers!");
+            setContentPane(contentPane);
+        });
+        ccPanel.add(button);
+
+        return ccPanel;
     }
 
 }
