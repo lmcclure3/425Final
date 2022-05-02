@@ -124,12 +124,22 @@ public class Login extends JFrame {
         // email address = username
         JLabel usernameLabel = new JLabel("Email Address:");
         usernameLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        usernameLabel.setBounds(335, 100, 1000, 30);
+        usernameLabel.setBounds(555, 100, 1000, 30);
         signUpPanel.add(usernameLabel);
         TextField username = new TextField();
-        username.setBounds(335, 140, 420, 30);
+        username.setBounds(555, 140, 210, 30);
         username.setFont(new Font("Tahoma", Font.PLAIN, 20));
         signUpPanel.add(username);
+
+        // name
+        JLabel nameLabel = new JLabel("First/Last:");
+        nameLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        nameLabel.setBounds(335, 100, 1000, 30);
+        signUpPanel.add(nameLabel);
+        TextField name = new TextField();
+        name.setBounds(335, 140, 210, 30);
+        name.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        signUpPanel.add(name);
 
         // password
         JLabel pwLabel = new JLabel("Password:");
@@ -137,19 +147,29 @@ public class Login extends JFrame {
         pwLabel.setBounds(335, 200, 1000, 30);
         signUpPanel.add(pwLabel);
         JPasswordField pw1 = new JPasswordField(20);
-        pw1.setBounds(335, 240, 420, 30);
+        pw1.setBounds(335, 240, 210, 30);
         pw1.setFont(new Font("Tahoma", Font.PLAIN, 20));
         signUpPanel.add(pw1);
 
         // confirm password
         JLabel confirmLabel = new JLabel("Confirm Password:");
         confirmLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        confirmLabel.setBounds(335, 300, 1000, 30);
+        confirmLabel.setBounds(555, 200, 1000, 30);
         signUpPanel.add(confirmLabel);
         JPasswordField pw2 = new JPasswordField(20);
-        pw2.setBounds(335, 340, 420, 30);
+        pw2.setBounds(555, 240, 210, 30);
         pw2.setFont(new Font("Tahoma", Font.PLAIN, 20));
         signUpPanel.add(pw2);
+
+        // phone number
+        JLabel mobileLabel = new JLabel("Mobile Number");
+        mobileLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        mobileLabel.setBounds(335, 300, 1000, 30);
+        signUpPanel.add(mobileLabel);
+        TextField mobileField = new TextField();
+        mobileField.setBounds(335, 340, 210, 30);
+        mobileField.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        signUpPanel.add(mobileField);
 
         signUpPanel.add(new JLabel());
         JButton button = new JButton("Create Account");
@@ -225,6 +245,11 @@ public class Login extends JFrame {
         loginPanel.add(button);
 
         return loginPanel;
+    }
+
+    // add card panel
+    private JPanel addCreditCardPanel() {
+        return null;
     }
 
 }
