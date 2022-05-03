@@ -19,11 +19,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * User Registration using Swing
- * @author javaguides.net
- *
- */
+
 public class Login extends JFrame {
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
@@ -70,7 +66,7 @@ public class Login extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
-        
+
         JButton send = new JButton("Send");
         JButton reset = new JButton("Reset");
         contentPane.add(send);
@@ -82,16 +78,10 @@ public class Login extends JFrame {
         welcomeMessage.setBounds(235, 100, 1000, 74);
 
         btnLogin = new JButton("Login");
-        btnLogin.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("test");
-            }
-        });
         btnCreateAccount = new JButton("Create Account");
         btnGuest = new JButton("Continue as Guest");
+        JButton btnInfo = new JButton("Account Info");
 
-        
         btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 22));
         btnLogin.setBounds(180, 300, 259, 74);
         btnLogin.addActionListener(e -> {
@@ -107,8 +97,15 @@ public class Login extends JFrame {
         contentPane.add(btnCreateAccount);
 
         btnGuest.setFont(new Font("Tahoma", Font.PLAIN, 22));
-        btnGuest.setBounds(380, 420, 259, 74);
+        btnGuest.setBounds(180, 420, 259, 74);
         contentPane.add(btnGuest);
+
+        btnInfo.setFont(new Font("Tahoma", Font.PLAIN, 22));
+        btnInfo.setBounds(580, 420, 259, 74);
+        btnInfo.addActionListener(e -> {
+            setContentPane(acctInfoPanel());
+        });
+        contentPane.add(btnInfo);
     }
 
     //todo center
@@ -355,6 +352,59 @@ public class Login extends JFrame {
         ccPanel.add(button);
 
         return ccPanel;
+    }
+
+    //todo major updates needed here, pull acct info from db
+    private JPanel acctInfoPanel() {
+        JPanel infoPanel = new JPanel();
+        infoPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        infoPanel.setBounds(new Rectangle(1014, 597));
+        infoPanel.setLayout(null);
+
+        // header
+        JLabel headerLabel = new JLabel("Account Information:");
+        headerLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
+        headerLabel.setBounds(320, 0, 1000, 75);
+        infoPanel.add(headerLabel);
+
+        // email
+        JLabel emailLabel = new JLabel("Email: " + "PLACEHOLDER");
+        emailLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        emailLabel.setBounds(335, 100, 1000, 30);
+        infoPanel.add(emailLabel);
+
+        // customer name
+        JLabel nameLabel = new JLabel("Name: " + "PLACEHOLDER");
+        nameLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        nameLabel.setBounds(335, 140, 1000, 30);
+        infoPanel.add(nameLabel);
+
+        // mobile number
+        JLabel mobileNumberLabel = new JLabel("Mobile Number: " + "PLACEHOLDER");
+        mobileNumberLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        mobileNumberLabel.setBounds(335, 180, 1000, 30);
+        infoPanel.add(mobileNumberLabel);
+
+        // go back to menu
+        JButton exitButton = new JButton("Return to Menu");
+        exitButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        exitButton.setBounds(335, 240, 200, 74);
+        exitButton.addActionListener(e -> {
+            System.out.println("Poggers!");
+            setContentPane(contentPane);
+        });
+        infoPanel.add(exitButton);
+
+        // delete acct
+        JButton deleteButton = new JButton("Delete Account");
+        deleteButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        deleteButton.setBounds(555, 240, 200, 74);
+        deleteButton.addActionListener(e -> {
+            System.out.println("PLACEHOLDER - Delete Logic Here");
+        });
+        infoPanel.add(deleteButton);
+
+        return infoPanel;
     }
 
 }
