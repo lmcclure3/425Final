@@ -66,7 +66,7 @@ public class Login extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
-        
+
         JButton send = new JButton("Send");
         JButton reset = new JButton("Reset");
         contentPane.add(send);
