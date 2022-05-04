@@ -106,16 +106,17 @@ public class Login extends JFrame {
         });
         contentPane.add(btnCreateAccount);
 
+        btnGuest.setText("Catalog");
         btnGuest.setFont(new Font("Tahoma", Font.PLAIN, 22));
         btnGuest.setBounds(180, 420, 259, 74);
         btnGuest.addActionListener(e -> {
             try {
-                guest = true;
                 setContentPane(catalogPanel());
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
         });
+
         contentPane.add(btnGuest);
 
         btnInfo.setFont(new Font("Tahoma", Font.PLAIN, 22));
@@ -255,13 +256,9 @@ public class Login extends JFrame {
             if (!username.getText().endsWith(".com") && !username.getText().contains("@")) {
                 loginLabel.setText("Error: Invalid Email!");
             } else {
-                // make this go to the product page when it is done!
                 guest = false;
-                try {
-                    setContentPane(catalogPanel());
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
+                contentPane.repaint();
+                setContentPane(contentPane);
             }
         });
         loginPanel.add(button);
@@ -423,6 +420,7 @@ public class Login extends JFrame {
         deleteButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
         deleteButton.setBounds(555, 240, 200, 74);
         deleteButton.addActionListener(e -> {
+            // todo add query to delete account
             System.out.println("PLACEHOLDER - Delete Logic Here");
         });
         infoPanel.add(deleteButton);
@@ -618,6 +616,7 @@ public class Login extends JFrame {
             if (guest) {
                 setContentPane(addCreditCardPanelGuest());
             } else {
+                // todo check account credit card
                 setContentPane(contentPane);
             }
         });
