@@ -3,10 +3,14 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,6 +22,8 @@ import javax.swing.border.EmptyBorder;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
+import java.util.List;
 
 
 public class Login extends JFrame {
@@ -33,6 +39,7 @@ public class Login extends JFrame {
     private JButton btnLogin;
     private JButton btnCreateAccount;
     private JButton btnGuest;
+    private List<String> item;
 
     private static final Font CLASS_FONT = new Font("Tahoma", Font.PLAIN, 20);
 
@@ -98,6 +105,13 @@ public class Login extends JFrame {
 
         btnGuest.setFont(new Font("Tahoma", Font.PLAIN, 22));
         btnGuest.setBounds(180, 420, 259, 74);
+        btnGuest.addActionListener(e -> {
+            try {
+                setContentPane(catalogPanel());
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
         contentPane.add(btnGuest);
 
         btnInfo.setFont(new Font("Tahoma", Font.PLAIN, 22));
@@ -405,6 +419,58 @@ public class Login extends JFrame {
         infoPanel.add(deleteButton);
 
         return infoPanel;
+    }
+
+    // catalog
+    private JPanel catalogPanel() throws IOException {
+        JPanel catalogPanel = new JPanel();
+        catalogPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        catalogPanel.setBounds(new Rectangle(1014, 800));
+        catalogPanel.setLayout(null);
+
+        // catalog header
+        JLabel headerLabel = new JLabel("Best Buy Catalog:");
+        headerLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
+        headerLabel.setBounds(370, -10, 1000, 75);
+        catalogPanel.add(headerLabel);
+
+        // stuff for chair
+        BufferedImage imgChair = ImageIO.read(new File("devokochair22.jpg"));
+        JLabel imgChair2 = new JLabel(new ImageIcon(imgChair));
+        imgChair2.setBounds(200, 50, 100, 171);
+        JLabel chairDeets = new JLabel("Gaming Chair");
+        chairDeets.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        chairDeets.setBounds(200, 200, 1000, 75);
+        JLabel chairPrice = new JLabel("Price: €420.69"); //todo ADD QUERY to UPDATE PRICE
+        chairPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        chairPrice.setBounds(200, 215, 1000, 75);
+        JButton chairAdd = new JButton("Add to Cart");
+        chairAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        chairAdd.setBounds(200, 280, 120, 30);
+        catalogPanel.add(imgChair2);
+        catalogPanel.add(chairDeets);
+        catalogPanel.add(chairPrice);
+        catalogPanel.add(chairAdd);
+
+        // stuff for keyboard
+        BufferedImage imgKeyboard = ImageIO.read(new File("lolkeyboard2.jpg"));
+        JLabel imgKeyboard2 = new JLabel(new ImageIcon(imgKeyboard));
+        imgKeyboard2.setBounds(200, 300, 171, 171);
+        JLabel keyboardDeets = new JLabel("League of Legends Keyboard");
+        keyboardDeets.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        keyboardDeets.setBounds(200, 440, 1000, 75);
+        JLabel keyboardPrice = new JLabel("Price: €420.69"); //todo ADD QUERY to UPDATE PRICE
+        keyboardPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        keyboardPrice.setBounds(200, 455, 1000, 75);
+        JButton keyboardAdd = new JButton("Add to Cart");
+        keyboardAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        keyboardAdd.setBounds(200, 515, 120, 30);
+        catalogPanel.add(imgKeyboard2);
+        catalogPanel.add(keyboardDeets);
+        catalogPanel.add(keyboardPrice);
+        catalogPanel.add(keyboardAdd);
+
+        return catalogPanel;
     }
 
 }
