@@ -44,7 +44,15 @@ public class Login extends JFrame {
     private boolean guest;
 
     private static final Font CLASS_FONT = new Font("Tahoma", Font.PLAIN, 20);
-
+    public static String GlobalUsername;
+    public static String GlobalFirstName;
+    public static String GlobalLastName;
+    //public static String GlobalLastName;
+    public static String GlobalPhoneNumber; 
+    public static String GlobalPassword; 
+    public static String GlobalCardNumber;
+    public static String GlobalExpDate;
+    public static String GlobalSecCode;
     /**
      * Launch the application.
      */
@@ -194,6 +202,7 @@ public class Login extends JFrame {
         button.setFont(new Font("Tahoma", Font.PLAIN, 20));
         button.setBounds(420, 420, 259, 74);
         button.addActionListener(e -> {
+           
             System.out.println("Poggers!");
             System.out.println(username.getText());
             System.out.println(pw1.getText());
@@ -204,6 +213,12 @@ public class Login extends JFrame {
             } else if (!pw1.getText().equals(pw2.getText())) {
                 signUpLabel.setText("Error: Passwords do not match!");
             } else {
+            	GlobalUsername = username.getText();
+                GlobalFirstName = name.getText();
+                System.out.print(GlobalFirstName);
+                GlobalPassword = pwLabel.getText();
+                GlobalPhoneNumber = mobileField.getText();
+                GlobalPassword = pw2.getText();
                 // make this go to the product page when it is done!
                 setContentPane(addCreditCardPanel());
             }
@@ -312,8 +327,28 @@ public class Login extends JFrame {
         button.setFont(new Font("Tahoma", Font.PLAIN, 20));
         button.setBounds(420, 340, 259, 74);
         button.addActionListener(e -> {
-            System.out.println("Poggers!");
-            setContentPane(contentPane);
+            try {
+                Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
+                //String query = "SELECT MAX(customerID) FROM ustomer;"; 
+                //Statement sta = connection.createStatement();
+                //int x = sta.executeUpdate(query);
+                //System.out.println(x);
+               
+                //String query = "INSERT into customers ('" + GlobalUsername + "', '" + GlobalPassword + "', '" + GlobalFirstName + "', '" + GlobalLastName + "', " + "NULL" + ", " + "NULL" + ", "+ "NULL" + ", " + "NULL" + ", " +"NULL" + ", " + "NULL" + ", "  + "NULL" + ");";
+                String query = "INSERT INTO \"HR\".\"CUSTOMERS\" (CUSTOMERID, CUSTOMERPASSWORD, FIRSTNAME) VALUES ('"+ GlobalUsername +"', '"+GlobalPassword+ "','"+GlobalFirstName + "')";
+
+                Statement sta = connection.createStatement();
+                int x = sta.executeUpdate(query);
+                System.out.println("Poggers!");
+                connection.close();
+                setContentPane(contentPane);
+            } catch (Exception exception) {
+                 exception.printStackTrace();
+            }
+            GlobalCardNumber = ccNumber.getText();
+            GlobalExpDate = expDate.getText();
+            GlobalSecCode = secCode.getText();
+
         });
         ccPanel.add(button);
 
@@ -366,12 +401,16 @@ public class Login extends JFrame {
         button.setFont(new Font("Tahoma", Font.PLAIN, 20));
         button.setBounds(420, 340, 259, 74);
         button.addActionListener(e -> {
+        	GlobalSecCode = secCode.getText();
+        	GlobalExpDate = expDate.getText();
+        	GlobalCardNumber = ccNumber.getText();
             System.out.println("Poggers!");
             setContentPane(contentPane);
         });
         ccPanel.add(button);
 
         return ccPanel;
+        
     }
 
     //todo major updates needed here, pull acct info from db
@@ -422,6 +461,7 @@ public class Login extends JFrame {
         deleteButton.addActionListener(e -> {
             // todo add query to delete account
             System.out.println("PLACEHOLDER - Delete Logic Here");
+            
         });
         infoPanel.add(deleteButton);
 

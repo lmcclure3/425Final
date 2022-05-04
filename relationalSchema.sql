@@ -54,7 +54,8 @@ Create table sales(
     primary key (productID)
 );
 Create table customers (
-    customerID int,
+    customerID varchar(64),
+    customerPassword varchar (64),
     firstName varchar(64),
     lastName varchar(64),
     sex varchar (6),
