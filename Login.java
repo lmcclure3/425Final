@@ -39,7 +39,9 @@ public class Login extends JFrame {
     private JButton btnLogin;
     private JButton btnCreateAccount;
     private JButton btnGuest;
+
     private List<String> shoppingCart;
+    private boolean guest;
 
     private static final Font CLASS_FONT = new Font("Tahoma", Font.PLAIN, 20);
 
@@ -73,6 +75,7 @@ public class Login extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
+        guest = true;
 
         JButton send = new JButton("Send");
         JButton reset = new JButton("Reset");
@@ -107,6 +110,7 @@ public class Login extends JFrame {
         btnGuest.setBounds(180, 420, 259, 74);
         btnGuest.addActionListener(e -> {
             try {
+                guest = true;
                 setContentPane(catalogPanel());
             } catch (IOException ioException) {
                 ioException.printStackTrace();
@@ -252,7 +256,12 @@ public class Login extends JFrame {
                 loginLabel.setText("Error: Invalid Email!");
             } else {
                 // make this go to the product page when it is done!
-                setContentPane(contentPane);
+                guest = false;
+                try {
+                    setContentPane(catalogPanel());
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         });
         loginPanel.add(button);
@@ -427,6 +436,7 @@ public class Login extends JFrame {
         catalogPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         catalogPanel.setBounds(new Rectangle(1014, 800));
         catalogPanel.setLayout(null);
+        shoppingCart = new ArrayList<>();
 
         // catalog header
         JLabel headerLabel = new JLabel("Best Buy Catalog:");
@@ -447,6 +457,9 @@ public class Login extends JFrame {
         JButton chairAdd = new JButton("Add to Cart");
         chairAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
         chairAdd.setBounds(200, 280, 120, 30);
+        chairAdd.addActionListener(e -> {
+            shoppingCart.add("Chair");
+        });
         catalogPanel.add(imgChair2);
         catalogPanel.add(chairDeets);
         catalogPanel.add(chairPrice);
@@ -465,6 +478,9 @@ public class Login extends JFrame {
         JButton keyboardAdd = new JButton("Add to Cart");
         keyboardAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
         keyboardAdd.setBounds(200, 515, 120, 30);
+        keyboardAdd.addActionListener(e -> {
+            shoppingCart.add("Keyboard");
+        });
         catalogPanel.add(imgKeyboard2);
         catalogPanel.add(keyboardDeets);
         catalogPanel.add(keyboardPrice);
@@ -483,6 +499,9 @@ public class Login extends JFrame {
         JButton microAdd = new JButton("Add to Cart");
         microAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
         microAdd.setBounds(450, 280, 120, 30);
+        microAdd.addActionListener(e -> {
+            shoppingCart.add("Microphone");
+        });
         catalogPanel.add(imgMicro2);
         catalogPanel.add(microDeets);
         catalogPanel.add(microPrice);
@@ -501,6 +520,9 @@ public class Login extends JFrame {
         JButton headsetAdd = new JButton("Add to Cart");
         headsetAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
         headsetAdd.setBounds(450, 515, 120, 30);
+        headsetAdd.addActionListener(e -> {
+            shoppingCart.add("Headset");
+        });
         catalogPanel.add(imgHeadset2);
         catalogPanel.add(headsetDeets);
         catalogPanel.add(headsetPrice);
@@ -519,6 +541,9 @@ public class Login extends JFrame {
         JButton mouseAdd = new JButton("Add to Cart");
         mouseAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
         mouseAdd.setBounds(700, 280, 120, 30);
+        mouseAdd.addActionListener(e -> {
+            shoppingCart.add("Mouse");
+        });
         catalogPanel.add(imgMouse2);
         catalogPanel.add(mouseDeets);
         catalogPanel.add(mousePrice);
@@ -537,12 +562,68 @@ public class Login extends JFrame {
         JButton printerAdd = new JButton("Add to Cart");
         printerAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
         printerAdd.setBounds(700, 515, 120, 30);
+        printerAdd.addActionListener(e -> {
+            shoppingCart.add("Printer");
+        });
         catalogPanel.add(imgPrinter2);
         catalogPanel.add(printerDeets);
         catalogPanel.add(printerPrice);
         catalogPanel.add(printerAdd);
 
+        JButton checkout = new JButton("Checkout");
+        checkout.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        checkout.setBounds(850, 515, 120, 30);
+        checkout.addActionListener(e -> {
+            System.out.println(shoppingCart);
+            setContentPane(showCart());
+        });
+        catalogPanel.add(checkout);
+
         return catalogPanel;
+    }
+
+    private JPanel showCart() {
+        JPanel cartPanel = new JPanel();
+        cartPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        cartPanel.setBounds(new Rectangle(1014, 800));
+        cartPanel.setLayout(null);
+
+        // cart header
+        JLabel headerLabel = new JLabel("Your Cart:");
+        headerLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
+        headerLabel.setBounds(370, -10, 1000, 75);
+        cartPanel.add(headerLabel);
+
+        // display items in cart
+        JLabel itemsLabel = new JLabel(shoppingCart.toString());
+        itemsLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        itemsLabel.setBounds(370, 100, 1000, 75);
+        cartPanel.add(itemsLabel);
+
+        // display total prices
+        // todo make this get prices
+        double total = 0;
+        for (int i = 0; i < shoppingCart.size(); i++) {
+            total += 420.69;
+        }
+        JLabel totalLabel = new JLabel("Total Cost: " + total);
+        totalLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        totalLabel.setBounds(370, 150, 1000, 75);
+        cartPanel.add(totalLabel);
+
+        JButton checkout = new JButton("Checkout");
+        checkout.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        checkout.setBounds(370, 300, 250, 75);
+        checkout.addActionListener(e -> {
+            if (guest) {
+                setContentPane(addCreditCardPanelGuest());
+            } else {
+                setContentPane(contentPane);
+            }
+        });
+        cartPanel.add(checkout);
+
+        return cartPanel;
     }
 
 }
