@@ -49,8 +49,8 @@ public class Login extends JFrame {
     public static String GlobalFirstName;
     public static String GlobalLastName;
     //public static String GlobalLastName;
-    public static String GlobalPhoneNumber; 
-    public static String GlobalPassword; 
+    public static String GlobalPhoneNumber;
+    public static String GlobalPassword;
     public static String GlobalCardNumber;
     public static String GlobalExpDate;
     public static String GlobalSecCode;
@@ -134,6 +134,14 @@ public class Login extends JFrame {
             setContentPane(acctInfoPanel());
         });
         contentPane.add(btnInfo);
+
+        JButton btnHist = new JButton("Purchase History");
+        btnHist.setFont(new Font("Tahoma", Font.PLAIN, 22));
+        btnHist.setBounds(385, 200, 259, 74);
+        btnHist.addActionListener(e -> {
+            setContentPane(purchaseHistoryPanel());
+        });
+        contentPane.add(btnHist);
     }
 
     //todo center
@@ -203,7 +211,7 @@ public class Login extends JFrame {
         button.setFont(new Font("Tahoma", Font.PLAIN, 20));
         button.setBounds(420, 420, 259, 74);
         button.addActionListener(e -> {
-           
+
             System.out.println("Poggers!");
             System.out.println(username.getText());
             System.out.println(pw1.getText());
@@ -214,7 +222,7 @@ public class Login extends JFrame {
             } else if (!pw1.getText().equals(pw2.getText())) {
                 signUpLabel.setText("Error: Passwords do not match!");
             } else {
-            	GlobalUsername = username.getText();
+                GlobalUsername = username.getText();
                 GlobalFirstName = name.getText();
                 System.out.print(GlobalFirstName);
                 GlobalPassword = pwLabel.getText();
@@ -268,10 +276,10 @@ public class Login extends JFrame {
             System.out.println("Poggers!");
             System.out.println(username.getText());
             System.out.println(pw1.getText());
-            
+
             String usrnm = username.getText();
             String pswd= pw1.getText();
-            
+
             if (!username.getText().endsWith(".com") && !username.getText().contains("@")) {
                 loginLabel.setText("Error: Invalid Email!");
             } else {
@@ -288,18 +296,18 @@ public class Login extends JFrame {
                 ddpswd.next();
                 String querypswd = ddpswd.getString("customerPassword");
                 if (querypswd.equals(pw1.getText())) {
-                	System.out.println("MATCHING PASSWORDS");
+                    System.out.println("MATCHING PASSWORDS");
                 }
                 else {
-                	System.out.println("WRONG PASSWORD");
+                    System.out.println("WRONG PASSWORD");
                 }
-               
-                
+
+
                 System.out.println("Poggers!");
                 connection.close();
                 setContentPane(contentPane);
             } catch (Exception exception) {
-                 exception.printStackTrace();
+                exception.printStackTrace();
             }
         });
         loginPanel.add(button);
@@ -362,7 +370,7 @@ public class Login extends JFrame {
                 connection.close();
                 //setContentPane(contentPane);
             } catch (Exception exception) {
-                 exception.printStackTrace();
+                exception.printStackTrace();
             }
             GlobalCardNumber = ccNumber.getText();
             GlobalExpDate = expDate.getText();
@@ -420,16 +428,16 @@ public class Login extends JFrame {
         button.setFont(new Font("Tahoma", Font.PLAIN, 20));
         button.setBounds(420, 340, 259, 74);
         button.addActionListener(e -> {
-        	GlobalSecCode = secCode.getText();
-        	GlobalExpDate = expDate.getText();
-        	GlobalCardNumber = ccNumber.getText();
+            GlobalSecCode = secCode.getText();
+            GlobalExpDate = expDate.getText();
+            GlobalCardNumber = ccNumber.getText();
             System.out.println("Poggers!");
             setContentPane(contentPane);
         });
         ccPanel.add(button);
 
         return ccPanel;
-        
+
     }
 
     //todo major updates needed here, pull acct info from db
@@ -480,7 +488,7 @@ public class Login extends JFrame {
         deleteButton.addActionListener(e -> {
             // todo add query to delete account
             System.out.println("PLACEHOLDER - Delete Logic Here");
-            
+
         });
         infoPanel.add(deleteButton);
 
@@ -682,6 +690,53 @@ public class Login extends JFrame {
         cartPanel.add(checkout);
 
         return cartPanel;
+    }
+
+    // purchase history
+    private JPanel purchaseHistoryPanel() {
+        JPanel historyPanel = new JPanel();
+        historyPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        historyPanel.setBounds(new Rectangle(1014, 800));
+        historyPanel.setLayout(null);
+
+        // history header
+        JLabel headerLabel = new JLabel("Your 5 most recent purchases:");
+        headerLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
+        headerLabel.setBounds(280, -10, 1000, 75);
+        historyPanel.add(headerLabel);
+
+        JLabel itemsLabel = new JLabel("Items:");
+        itemsLabel.setFont(new Font("Tahoma", Font.PLAIN, 25));
+        itemsLabel.setBounds(100, 50, 1000, 75);
+        historyPanel.add(itemsLabel);
+
+        JLabel totalLabel = new JLabel("Total:");
+        totalLabel.setFont(new Font("Tahoma", Font.PLAIN, 25));
+        totalLabel.setBounds(500, 50, 1000, 75);
+        historyPanel.add(totalLabel);
+
+        // todo update this with results from the query, break loop early if there isnt 5 recent purchases
+        for (int i = 0; i < 5; i++) {
+            JLabel tempItems = new JLabel("PLACEHOLDER");
+            tempItems.setFont(new Font("Tahoma", Font.PLAIN, 20));
+            tempItems.setBounds(100, 100 + (30 * i), 1000, 75);
+            historyPanel.add(tempItems);
+
+            JLabel tempPrice = new JLabel("PLACEHOLDER PRICE");
+            tempPrice.setFont(new Font("Tahoma", Font.PLAIN, 20));
+            tempPrice.setBounds(500, 100 + (30 * i), 1000, 75);
+            historyPanel.add(tempPrice);
+        }
+
+        JButton returnButton = new JButton("Return to Menu");
+        returnButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        returnButton.setBounds(370, 420, 250, 75);
+        returnButton.addActionListener(e -> {
+            setContentPane(contentPane);
+        });
+        historyPanel.add(returnButton);
+
+        return historyPanel;
     }
 
 }
