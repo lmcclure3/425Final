@@ -547,6 +547,9 @@ public class Login extends JFrame {
         JLabel chairPrice = new JLabel("Price: $350"); //todo ADD QUERY to UPDATE PRICE
         chairPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
         chairPrice.setBounds(200, 215, 1000, 75);
+        JLabel chairQuantity = new JLabel("Quantity: 10");
+        chairQuantity.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        chairQuantity.setBounds(200, 230, 1000, 75);
         JButton chairAdd = new JButton("Add to Cart");
         chairAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
         chairAdd.setBounds(200, 280, 120, 30);
@@ -556,6 +559,7 @@ public class Login extends JFrame {
         catalogPanel.add(imgChair2);
         catalogPanel.add(chairDeets);
         catalogPanel.add(chairPrice);
+        catalogPanel.add(chairQuantity);
         catalogPanel.add(chairAdd);
 
         // stuff for keyboard
@@ -568,6 +572,9 @@ public class Login extends JFrame {
         JLabel keyboardPrice = new JLabel("Price: $444"); //todo ADD QUERY to UPDATE PRICE
         keyboardPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
         keyboardPrice.setBounds(200, 455, 1000, 75);
+        JLabel keyboardQuantity = new JLabel("Quantity: 20");
+        keyboardQuantity.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        keyboardQuantity.setBounds(200, 470, 1000, 75);
         JButton keyboardAdd = new JButton("Add to Cart");
         keyboardAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
         keyboardAdd.setBounds(200, 515, 120, 30);
@@ -577,6 +584,7 @@ public class Login extends JFrame {
         catalogPanel.add(imgKeyboard2);
         catalogPanel.add(keyboardDeets);
         catalogPanel.add(keyboardPrice);
+        catalogPanel.add(keyboardQuantity);
         catalogPanel.add(keyboardAdd);
 
         // stuff for microphone
@@ -589,6 +597,9 @@ public class Login extends JFrame {
         JLabel microPrice = new JLabel("Price: $99.99"); //todo ADD QUERY to UPDATE PRICE
         microPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
         microPrice.setBounds(450, 215, 1000, 75);
+        JLabel microQuantity = new JLabel("Quantity: 60");
+        microQuantity.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        microQuantity.setBounds(450, 230, 1000, 75);
         JButton microAdd = new JButton("Add to Cart");
         microAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
         microAdd.setBounds(450, 280, 120, 30);
@@ -598,6 +609,7 @@ public class Login extends JFrame {
         catalogPanel.add(imgMicro2);
         catalogPanel.add(microDeets);
         catalogPanel.add(microPrice);
+        catalogPanel.add(microQuantity);
         catalogPanel.add(microAdd);
 
         // stuff for headset
@@ -610,6 +622,9 @@ public class Login extends JFrame {
         JLabel headsetPrice = new JLabel("Price: $70.01"); //todo ADD QUERY to UPDATE PRICE
         headsetPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
         headsetPrice.setBounds(450, 455, 1000, 75);
+        JLabel headsetQuantity = new JLabel("Quantity: 42");
+        headsetQuantity.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        headsetQuantity.setBounds(450, 470, 1000, 75);
         JButton headsetAdd = new JButton("Add to Cart");
         headsetAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
         headsetAdd.setBounds(450, 515, 120, 30);
@@ -619,6 +634,7 @@ public class Login extends JFrame {
         catalogPanel.add(imgHeadset2);
         catalogPanel.add(headsetDeets);
         catalogPanel.add(headsetPrice);
+        catalogPanel.add(headsetQuantity);
         catalogPanel.add(headsetAdd);
 
         // stuff for mouse
@@ -631,6 +647,9 @@ public class Login extends JFrame {
         JLabel mousePrice = new JLabel("Price: $25.59"); //todo ADD QUERY to UPDATE PRICE
         mousePrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
         mousePrice.setBounds(700, 215, 1000, 75);
+        JLabel mouseQuantity = new JLabel("Quantity: 100");
+        mouseQuantity.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        mouseQuantity.setBounds(700, 230, 1000, 75);
         JButton mouseAdd = new JButton("Add to Cart");
         mouseAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
         mouseAdd.setBounds(700, 280, 120, 30);
@@ -640,6 +659,7 @@ public class Login extends JFrame {
         catalogPanel.add(imgMouse2);
         catalogPanel.add(mouseDeets);
         catalogPanel.add(mousePrice);
+        catalogPanel.add(mouseQuantity);
         catalogPanel.add(mouseAdd);
 
         // stuff for printer
@@ -652,6 +672,9 @@ public class Login extends JFrame {
         JLabel printerPrice = new JLabel("Price: $500"); //todo ADD QUERY to UPDATE PRICE
         printerPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
         printerPrice.setBounds(700, 455, 1000, 75);
+        JLabel printerQuantity = new JLabel("Quantity: 5");
+        printerQuantity.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        printerQuantity.setBounds(700, 470, 1000, 75);
         JButton printerAdd = new JButton("Add to Cart");
         printerAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
         printerAdd.setBounds(700, 515, 120, 30);
@@ -661,6 +684,7 @@ public class Login extends JFrame {
         catalogPanel.add(imgPrinter2);
         catalogPanel.add(printerDeets);
         catalogPanel.add(printerPrice);
+        catalogPanel.add(printerQuantity);
         catalogPanel.add(printerAdd);
 
         JButton checkout = new JButton("Checkout");
