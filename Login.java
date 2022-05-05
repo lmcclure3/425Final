@@ -291,12 +291,18 @@ public class Login extends JFrame {
             try {
                 Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
                 Statement statement = connection.createStatement();
-                ResultSet ddpswd = statement.executeQuery("SELECT customerPassword FROM customers WHERE customerID = '"+ usrnm + "'");
+                ResultSet ddpswd = statement.executeQuery("SELECT * FROM customers WHERE customerID = '"+ usrnm + "'");
                 //String queryusrnm = "";
                 ddpswd.next();
                 String querypswd = ddpswd.getString("customerPassword");
                 if (querypswd.equals(pw1.getText())) {
-                    System.out.println("MATCHING PASSWORDS");
+
+                	System.out.println("MATCHING PASSWORDS");
+                	GlobalUsername = usrnm;
+                	GlobalPassword = ddpswd.getString("customerPassword");
+                	GlobalFirstName = ddpswd.getString("firstName");
+                	GlobalPhoneNumber = ddpswd.getString("phone");	
+
                 }
                 else {
                     System.out.println("WRONG PASSWORD");
@@ -305,7 +311,7 @@ public class Login extends JFrame {
 
                 System.out.println("Poggers!");
                 connection.close();
-                setContentPane(contentPane);
+                //setContentPane(contentPane);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -363,18 +369,19 @@ public class Login extends JFrame {
         button.addActionListener(e -> {
             try {
                 Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
-                String query = "INSERT INTO \"HR\".\"CUSTOMERS\" (CUSTOMERID, CUSTOMERPASSWORD, FIRSTNAME) VALUES ('"+ GlobalUsername +"', '"+GlobalPassword+ "','"+GlobalFirstName + "')";
+                String query = "INSERT INTO \"HR\".\"CUSTOMERS\" (CUSTOMERID, CUSTOMERPASSWORD, FIRSTNAME, PHONE) VALUES ('"+ GlobalUsername +"', '"+GlobalPassword+ "','"+GlobalFirstName+ "','"+ GlobalPhoneNumber + "')";
                 Statement sta = connection.createStatement();
                 int x = sta.executeUpdate(query);
                 System.out.println("Poggers!");
                 connection.close();
-                //setContentPane(contentPane);
+                setContentPane(contentPane);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
             GlobalCardNumber = ccNumber.getText();
             GlobalExpDate = expDate.getText();
             GlobalSecCode = secCode.getText();
+            
 
         });
         ccPanel.add(button);
@@ -440,7 +447,7 @@ public class Login extends JFrame {
 
     }
 
-    //todo major updates needed here, pull acct info from db
+    //todo major updates needed here, pull acct info from db. these now get cached in the program variables upon login or account creation.
     private JPanel acctInfoPanel() {
         JPanel infoPanel = new JPanel();
         infoPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -453,24 +460,27 @@ public class Login extends JFrame {
         headerLabel.setBounds(320, 0, 1000, 75);
         infoPanel.add(headerLabel);
 
-        // email
-        JLabel emailLabel = new JLabel("Email: " + "PLACEHOLDER");
+        // email Global
+        JLabel emailLabel = new JLabel("Email: " + GlobalUsername);
         emailLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
         emailLabel.setBounds(335, 100, 1000, 30);
         infoPanel.add(emailLabel);
+        System.out.print(GlobalUsername);
 
         // customer name
-        JLabel nameLabel = new JLabel("Name: " + "PLACEHOLDER");
+        JLabel nameLabel = new JLabel("Name: " + GlobalFirstName);
         nameLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
         nameLabel.setBounds(335, 140, 1000, 30);
         infoPanel.add(nameLabel);
-
+        System.out.print(GlobalFirstName);
+        
         // mobile number
-        JLabel mobileNumberLabel = new JLabel("Mobile Number: " + "PLACEHOLDER");
+        JLabel mobileNumberLabel = new JLabel("Mobile Number: " + GlobalPhoneNumber);
         mobileNumberLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
         mobileNumberLabel.setBounds(335, 180, 1000, 30);
         infoPanel.add(mobileNumberLabel);
-
+        System.out.print(GlobalPhoneNumber);
+        
         // go back to menu
         JButton exitButton = new JButton("Return to Menu");
         exitButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -489,6 +499,24 @@ public class Login extends JFrame {
             // todo add query to delete account
             System.out.println("PLACEHOLDER - Delete Logic Here");
 
+            try {
+                Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
+                Statement statement = connection.createStatement();
+                //ResultSet ddpswd = statement.executeQuery("SELECT * FROM customers WHERE customerID = '"+ usrnm + "'");
+                //String queryusrnm = "";
+                
+                int x = statement.executeUpdate("DELETE FROM customers WHERE customerID = '" + GlobalUsername +"'");
+                
+               
+                
+                System.out.println("Poggers!");
+                connection.close();
+                //setContentPane(contentPane);
+            } catch (Exception exception) {
+                 exception.printStackTrace();
+            }
+            
+          
         });
         infoPanel.add(deleteButton);
 
