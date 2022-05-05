@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javax.imageio.ImageIO;
@@ -267,13 +268,38 @@ public class Login extends JFrame {
             System.out.println("Poggers!");
             System.out.println(username.getText());
             System.out.println(pw1.getText());
-
+            
+            String usrnm = username.getText();
+            String pswd= pw1.getText();
+            
             if (!username.getText().endsWith(".com") && !username.getText().contains("@")) {
                 loginLabel.setText("Error: Invalid Email!");
             } else {
                 guest = false;
                 contentPane.repaint();
                 setContentPane(contentPane);
+            }
+            //doing
+            try {
+                Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
+                Statement statement = connection.createStatement();
+                ResultSet ddpswd = statement.executeQuery("SELECT customerPassword FROM customers WHERE customerID = '"+ usrnm + "'");
+                //String queryusrnm = "";
+                ddpswd.next();
+                String querypswd = ddpswd.getString("customerPassword");
+                if (querypswd.equals(pw1.getText())) {
+                	System.out.println("MATCHING PASSWORDS");
+                }
+                else {
+                	System.out.println("WRONG PASSWORD");
+                }
+               
+                
+                System.out.println("Poggers!");
+                connection.close();
+                setContentPane(contentPane);
+            } catch (Exception exception) {
+                 exception.printStackTrace();
             }
         });
         loginPanel.add(button);
@@ -329,19 +355,12 @@ public class Login extends JFrame {
         button.addActionListener(e -> {
             try {
                 Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
-                //String query = "SELECT MAX(customerID) FROM ustomer;"; 
-                //Statement sta = connection.createStatement();
-                //int x = sta.executeUpdate(query);
-                //System.out.println(x);
-               
-                //String query = "INSERT into customers ('" + GlobalUsername + "', '" + GlobalPassword + "', '" + GlobalFirstName + "', '" + GlobalLastName + "', " + "NULL" + ", " + "NULL" + ", "+ "NULL" + ", " + "NULL" + ", " +"NULL" + ", " + "NULL" + ", "  + "NULL" + ");";
                 String query = "INSERT INTO \"HR\".\"CUSTOMERS\" (CUSTOMERID, CUSTOMERPASSWORD, FIRSTNAME) VALUES ('"+ GlobalUsername +"', '"+GlobalPassword+ "','"+GlobalFirstName + "')";
-
                 Statement sta = connection.createStatement();
                 int x = sta.executeUpdate(query);
                 System.out.println("Poggers!");
                 connection.close();
-                setContentPane(contentPane);
+                //setContentPane(contentPane);
             } catch (Exception exception) {
                  exception.printStackTrace();
             }
