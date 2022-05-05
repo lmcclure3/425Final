@@ -57,7 +57,7 @@ Create table customers (
     customerID varchar(64),
     customerPassword varchar (64),
     firstName varchar(64),
-    lastName varchar(64),
+    phone varchar(11),
     sex varchar (6),
     birthdate date,
     adressNum int,
