@@ -544,7 +544,7 @@ public class Login extends JFrame {
         JLabel chairDeets = new JLabel("Gaming Chair");
         chairDeets.setFont(new Font("Tahoma", Font.PLAIN, 15));
         chairDeets.setBounds(200, 200, 1000, 75);
-        JLabel chairPrice = new JLabel("Price: €420.69"); //todo ADD QUERY to UPDATE PRICE
+        JLabel chairPrice = new JLabel("Price: $350"); //todo ADD QUERY to UPDATE PRICE
         chairPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
         chairPrice.setBounds(200, 215, 1000, 75);
         JButton chairAdd = new JButton("Add to Cart");
@@ -565,7 +565,7 @@ public class Login extends JFrame {
         JLabel keyboardDeets = new JLabel("League of Legends Keyboard");
         keyboardDeets.setFont(new Font("Tahoma", Font.PLAIN, 15));
         keyboardDeets.setBounds(200, 440, 1000, 75);
-        JLabel keyboardPrice = new JLabel("Price: €600"); //todo ADD QUERY to UPDATE PRICE
+        JLabel keyboardPrice = new JLabel("Price: $444"); //todo ADD QUERY to UPDATE PRICE
         keyboardPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
         keyboardPrice.setBounds(200, 455, 1000, 75);
         JButton keyboardAdd = new JButton("Add to Cart");
@@ -586,7 +586,7 @@ public class Login extends JFrame {
         JLabel microDeets = new JLabel("Microphone");
         microDeets.setFont(new Font("Tahoma", Font.PLAIN, 15));
         microDeets.setBounds(450, 200, 1000, 75);
-        JLabel microPrice = new JLabel("Price: €420.69"); //todo ADD QUERY to UPDATE PRICE
+        JLabel microPrice = new JLabel("Price: $99.99"); //todo ADD QUERY to UPDATE PRICE
         microPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
         microPrice.setBounds(450, 215, 1000, 75);
         JButton microAdd = new JButton("Add to Cart");
@@ -607,7 +607,7 @@ public class Login extends JFrame {
         JLabel headsetDeets = new JLabel("Headset");
         headsetDeets.setFont(new Font("Tahoma", Font.PLAIN, 15));
         headsetDeets.setBounds(450, 440, 1000, 75);
-        JLabel headsetPrice = new JLabel("Price: €420.69"); //todo ADD QUERY to UPDATE PRICE
+        JLabel headsetPrice = new JLabel("Price: $70.01"); //todo ADD QUERY to UPDATE PRICE
         headsetPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
         headsetPrice.setBounds(450, 455, 1000, 75);
         JButton headsetAdd = new JButton("Add to Cart");
@@ -628,7 +628,7 @@ public class Login extends JFrame {
         JLabel mouseDeets = new JLabel("Gaming Mouse");
         mouseDeets.setFont(new Font("Tahoma", Font.PLAIN, 15));
         mouseDeets.setBounds(700, 200, 1000, 75);
-        JLabel mousePrice = new JLabel("Price: €420.69"); //todo ADD QUERY to UPDATE PRICE
+        JLabel mousePrice = new JLabel("Price: $25.59"); //todo ADD QUERY to UPDATE PRICE
         mousePrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
         mousePrice.setBounds(700, 215, 1000, 75);
         JButton mouseAdd = new JButton("Add to Cart");
@@ -649,7 +649,7 @@ public class Login extends JFrame {
         JLabel printerDeets = new JLabel("Printer");
         printerDeets.setFont(new Font("Tahoma", Font.PLAIN, 15));
         printerDeets.setBounds(700, 440, 1000, 75);
-        JLabel printerPrice = new JLabel("Price: €600"); //todo ADD QUERY to UPDATE PRICE
+        JLabel printerPrice = new JLabel("Price: $500"); //todo ADD QUERY to UPDATE PRICE
         printerPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
         printerPrice.setBounds(700, 455, 1000, 75);
         JButton printerAdd = new JButton("Add to Cart");
