@@ -554,6 +554,7 @@ public class Login extends JFrame {
         JLabel chairDeets = new JLabel("Gaming Chair");
         chairDeets.setFont(new Font("Tahoma", Font.PLAIN, 15));
         chairDeets.setBounds(200, 200, 1000, 75);
+<<<<<<< HEAD
         try {
 	        Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
 	        Statement statement = connection.createStatement();
@@ -581,6 +582,12 @@ public class Login extends JFrame {
             queryCount = "0";
         }
         JLabel chairQuantity = new JLabel("Quantity: " + queryCount); 
+=======
+        JLabel chairPrice = new JLabel("Price: $350"); //todo ADD QUERY to UPDATE PRICE
+        chairPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        chairPrice.setBounds(200, 215, 1000, 75);
+        JLabel chairQuantity = new JLabel("Quantity: 10");
+>>>>>>> dfee85c9337ca6f0cf721b9a604580aa77f2ca63
         chairQuantity.setFont(new Font("Tahoma", Font.PLAIN, 12));
         chairQuantity.setBounds(200, 230, 1000, 75);
         JButton chairAdd = new JButton("Add to Cart");
@@ -602,6 +609,7 @@ public class Login extends JFrame {
         JLabel keyboardDeets = new JLabel("League of Legends Keyboard");
         keyboardDeets.setFont(new Font("Tahoma", Font.PLAIN, 15));
         keyboardDeets.setBounds(200, 440, 1000, 75);
+<<<<<<< HEAD
         try {
 	        Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
 	        Statement statement = connection.createStatement();
@@ -635,6 +643,12 @@ public class Login extends JFrame {
             queryCount = "0";
         }
         JLabel keyboardQuantity = new JLabel("Quantity: " + queryCount);
+=======
+        JLabel keyboardPrice = new JLabel("Price: $444"); //todo ADD QUERY to UPDATE PRICE
+        keyboardPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        keyboardPrice.setBounds(200, 455, 1000, 75);
+        JLabel keyboardQuantity = new JLabel("Quantity: 20");
+>>>>>>> dfee85c9337ca6f0cf721b9a604580aa77f2ca63
         keyboardQuantity.setFont(new Font("Tahoma", Font.PLAIN, 12));
         keyboardQuantity.setBounds(200, 470, 1000, 75);
         JButton keyboardAdd = new JButton("Add to Cart");
@@ -656,6 +670,7 @@ public class Login extends JFrame {
         JLabel microDeets = new JLabel("Microphone");
         microDeets.setFont(new Font("Tahoma", Font.PLAIN, 15));
         microDeets.setBounds(450, 200, 1000, 75);
+<<<<<<< HEAD
         try {
 	        Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
 	        Statement statement = connection.createStatement();
@@ -689,6 +704,12 @@ public class Login extends JFrame {
             queryCount = "0";
         }
         JLabel microQuantity = new JLabel("Quantity: "+queryCount);
+=======
+        JLabel microPrice = new JLabel("Price: $99.99"); //todo ADD QUERY to UPDATE PRICE
+        microPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        microPrice.setBounds(450, 215, 1000, 75);
+        JLabel microQuantity = new JLabel("Quantity: 60");
+>>>>>>> dfee85c9337ca6f0cf721b9a604580aa77f2ca63
         microQuantity.setFont(new Font("Tahoma", Font.PLAIN, 12));
         microQuantity.setBounds(450, 230, 1000, 75);
         JButton microAdd = new JButton("Add to Cart");
@@ -710,6 +731,7 @@ public class Login extends JFrame {
         JLabel headsetDeets = new JLabel("Headset");
         headsetDeets.setFont(new Font("Tahoma", Font.PLAIN, 15));
         headsetDeets.setBounds(450, 440, 1000, 75);
+<<<<<<< HEAD
         try {
             Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
             Statement statement = connection.createStatement();
@@ -736,6 +758,12 @@ public class Login extends JFrame {
             queryCount = "0";
         }
         JLabel headsetQuantity = new JLabel("Quantity: "+queryCount);
+=======
+        JLabel headsetPrice = new JLabel("Price: $70.01"); //todo ADD QUERY to UPDATE PRICE
+        headsetPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        headsetPrice.setBounds(450, 455, 1000, 75);
+        JLabel headsetQuantity = new JLabel("Quantity: 42");
+>>>>>>> dfee85c9337ca6f0cf721b9a604580aa77f2ca63
         headsetQuantity.setFont(new Font("Tahoma", Font.PLAIN, 12));
         headsetQuantity.setBounds(450, 470, 1000, 75);
         JButton headsetAdd = new JButton("Add to Cart");
@@ -757,6 +785,7 @@ public class Login extends JFrame {
         JLabel mouseDeets = new JLabel("Gaming Mouse");
         mouseDeets.setFont(new Font("Tahoma", Font.PLAIN, 15));
         mouseDeets.setBounds(700, 200, 1000, 75);
+<<<<<<< HEAD
         try {
             Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
             Statement statement = connection.createStatement();
@@ -783,6 +812,12 @@ public class Login extends JFrame {
             queryCount = "0";
         }
         JLabel mouseQuantity = new JLabel("Quantity: "+queryCount);
+=======
+        JLabel mousePrice = new JLabel("Price: $25.59"); //todo ADD QUERY to UPDATE PRICE
+        mousePrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        mousePrice.setBounds(700, 215, 1000, 75);
+        JLabel mouseQuantity = new JLabel("Quantity: 100");
+>>>>>>> dfee85c9337ca6f0cf721b9a604580aa77f2ca63
         mouseQuantity.setFont(new Font("Tahoma", Font.PLAIN, 12));
         mouseQuantity.setBounds(700, 230, 1000, 75);
         JButton mouseAdd = new JButton("Add to Cart");
@@ -804,6 +839,7 @@ public class Login extends JFrame {
         JLabel printerDeets = new JLabel("Printer");
         printerDeets.setFont(new Font("Tahoma", Font.PLAIN, 15));
         printerDeets.setBounds(700, 440, 1000, 75);
+<<<<<<< HEAD
         try {
             Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
             Statement statement = connection.createStatement();
@@ -830,6 +866,12 @@ public class Login extends JFrame {
             queryCount = "0";
         }
         JLabel printerQuantity = new JLabel("Quantity: " + queryCount);
+=======
+        JLabel printerPrice = new JLabel("Price: $500"); //todo ADD QUERY to UPDATE PRICE
+        printerPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        printerPrice.setBounds(700, 455, 1000, 75);
+        JLabel printerQuantity = new JLabel("Quantity: 5");
+>>>>>>> dfee85c9337ca6f0cf721b9a604580aa77f2ca63
         printerQuantity.setFont(new Font("Tahoma", Font.PLAIN, 12));
         printerQuantity.setBounds(700, 470, 1000, 75);
         JButton printerAdd = new JButton("Add to Cart");
@@ -1030,4 +1072,8 @@ public class Login extends JFrame {
         return infoPanel;
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> dfee85c9337ca6f0cf721b9a604580aa77f2ca63
