@@ -490,6 +490,15 @@ public class Login extends JFrame {
             setContentPane(contentPane);
         });
         infoPanel.add(exitButton);
+        
+        // update account info
+        JButton updateButton = new JButton("Update Info");
+        updateButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        updateButton.setBounds(335, 340, 200, 74);
+        updateButton.addActionListener(e -> {
+            setContentPane(updateAccount());
+        });
+        infoPanel.add(updateButton);
 
         // delete acct
         JButton deleteButton = new JButton("Delete Account");
@@ -789,6 +798,50 @@ public class Login extends JFrame {
         historyPanel.add(returnButton);
 
         return historyPanel;
+    }
+    
+        // update account info
+    private JPanel updateAccount() {
+        JPanel infoPanel = new JPanel();
+        infoPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        infoPanel.setBounds(new Rectangle(1014, 597));
+        infoPanel.setLayout(null);
+
+        // header
+        JLabel headerLabel = new JLabel("Update Account Information:");
+        headerLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
+        headerLabel.setBounds(320, 0, 1000, 75);
+        infoPanel.add(headerLabel);
+
+        // email Global
+        JTextField nameField = new JTextField("Name");
+        nameField.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        nameField.setBounds(335, 100, 420, 30);
+        infoPanel.add(nameField);
+
+        // customer name
+        JTextField pwField = new JTextField("Password");
+        pwField.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        pwField.setBounds(335, 140, 420, 30);
+        infoPanel.add(pwField);
+
+        // mobile number
+        JTextField mobileNumberLabel = new JTextField("Mobile Number");
+        mobileNumberLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        mobileNumberLabel.setBounds(335, 180, 420, 30);
+        infoPanel.add(mobileNumberLabel);
+
+        // update button
+        JButton updateButton = new JButton("Confirm Updates");
+        updateButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        updateButton.setBounds(420, 250, 250, 75);
+        updateButton.addActionListener(e -> {
+            // todo make this update stuff
+            setContentPane(contentPane);
+        });
+        infoPanel.add(updateButton);
+
+        return infoPanel;
     }
 
 }
