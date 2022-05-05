@@ -49,8 +49,8 @@ public class Login extends JFrame {
     public static String GlobalFirstName;
     public static String GlobalLastName;
     //public static String GlobalLastName;
-    public static String GlobalPhoneNumber; 
-    public static String GlobalPassword; 
+    public static String GlobalPhoneNumber;
+    public static String GlobalPassword;
     public static String GlobalCardNumber;
     public static String GlobalExpDate;
     public static String GlobalSecCode;
@@ -134,6 +134,14 @@ public class Login extends JFrame {
             setContentPane(acctInfoPanel());
         });
         contentPane.add(btnInfo);
+
+        JButton btnHist = new JButton("Purchase History");
+        btnHist.setFont(new Font("Tahoma", Font.PLAIN, 22));
+        btnHist.setBounds(385, 200, 259, 74);
+        btnHist.addActionListener(e -> {
+            setContentPane(purchaseHistoryPanel());
+        });
+        contentPane.add(btnHist);
     }
 
     //todo center
@@ -203,7 +211,7 @@ public class Login extends JFrame {
         button.setFont(new Font("Tahoma", Font.PLAIN, 20));
         button.setBounds(420, 420, 259, 74);
         button.addActionListener(e -> {
-           
+
             System.out.println("Poggers!");
             System.out.println(username.getText());
             System.out.println(pw1.getText());
@@ -214,7 +222,7 @@ public class Login extends JFrame {
             } else if (!pw1.getText().equals(pw2.getText())) {
                 signUpLabel.setText("Error: Passwords do not match!");
             } else {
-            	GlobalUsername = username.getText();
+                GlobalUsername = username.getText();
                 GlobalFirstName = name.getText();
                 System.out.print(GlobalFirstName);
                 GlobalPassword = pwLabel.getText();
@@ -268,10 +276,10 @@ public class Login extends JFrame {
             System.out.println("Poggers!");
             System.out.println(username.getText());
             System.out.println(pw1.getText());
-            
+
             String usrnm = username.getText();
             String pswd= pw1.getText();
-            
+
             if (!username.getText().endsWith(".com") && !username.getText().contains("@")) {
                 loginLabel.setText("Error: Invalid Email!");
             } else {
@@ -288,22 +296,24 @@ public class Login extends JFrame {
                 ddpswd.next();
                 String querypswd = ddpswd.getString("customerPassword");
                 if (querypswd.equals(pw1.getText())) {
+
                 	System.out.println("MATCHING PASSWORDS");
                 	GlobalUsername = usrnm;
                 	GlobalPassword = ddpswd.getString("customerPassword");
                 	GlobalFirstName = ddpswd.getString("firstName");
                 	GlobalPhoneNumber = ddpswd.getString("phone");	
+
                 }
                 else {
-                	System.out.println("WRONG PASSWORD");
+                    System.out.println("WRONG PASSWORD");
                 }
-               
-                
+
+
                 System.out.println("Poggers!");
                 connection.close();
                 //setContentPane(contentPane);
             } catch (Exception exception) {
-                 exception.printStackTrace();
+                exception.printStackTrace();
             }
         });
         loginPanel.add(button);
@@ -366,7 +376,7 @@ public class Login extends JFrame {
                 connection.close();
                 setContentPane(contentPane);
             } catch (Exception exception) {
-                 exception.printStackTrace();
+                exception.printStackTrace();
             }
             GlobalCardNumber = ccNumber.getText();
             GlobalExpDate = expDate.getText();
@@ -425,16 +435,16 @@ public class Login extends JFrame {
         button.setFont(new Font("Tahoma", Font.PLAIN, 20));
         button.setBounds(420, 340, 259, 74);
         button.addActionListener(e -> {
-        	GlobalSecCode = secCode.getText();
-        	GlobalExpDate = expDate.getText();
-        	GlobalCardNumber = ccNumber.getText();
+            GlobalSecCode = secCode.getText();
+            GlobalExpDate = expDate.getText();
+            GlobalCardNumber = ccNumber.getText();
             System.out.println("Poggers!");
             setContentPane(contentPane);
         });
         ccPanel.add(button);
 
         return ccPanel;
-        
+
     }
 
     //todo major updates needed here, pull acct info from db. these now get cached in the program variables upon login or account creation.
@@ -480,6 +490,15 @@ public class Login extends JFrame {
             setContentPane(contentPane);
         });
         infoPanel.add(exitButton);
+        
+        // update account info
+        JButton updateButton = new JButton("Update Info");
+        updateButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        updateButton.setBounds(335, 340, 200, 74);
+        updateButton.addActionListener(e -> {
+            setContentPane(updateAccount());
+        });
+        infoPanel.add(updateButton);
 
         // delete acct
         JButton deleteButton = new JButton("Delete Account");
@@ -488,6 +507,7 @@ public class Login extends JFrame {
         deleteButton.addActionListener(e -> {
             // todo add query to delete account
             System.out.println("PLACEHOLDER - Delete Logic Here");
+
             try {
                 Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
                 Statement statement = connection.createStatement();
@@ -505,7 +525,7 @@ public class Login extends JFrame {
                  exception.printStackTrace();
             }
             
-            
+          
         });
         infoPanel.add(deleteButton);
 
@@ -514,6 +534,7 @@ public class Login extends JFrame {
 
     // catalog
     private JPanel catalogPanel() throws IOException {
+    	String queryCount= "";
         JPanel catalogPanel = new JPanel();
         catalogPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         catalogPanel.setBounds(new Rectangle(1014, 800));
@@ -533,18 +554,45 @@ public class Login extends JFrame {
         JLabel chairDeets = new JLabel("Gaming Chair");
         chairDeets.setFont(new Font("Tahoma", Font.PLAIN, 15));
         chairDeets.setBounds(200, 200, 1000, 75);
-        JLabel chairPrice = new JLabel("Price: €420.69"); //todo ADD QUERY to UPDATE PRICE
+        try {
+	        Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
+	        Statement statement = connection.createStatement();
+	        ResultSet ddpswd = statement.executeQuery("SELECT * FROM products WHERE productID = 'Gaming Chair'");
+	        System.out.print(ddpswd.next());
+	        queryCount = "" + ddpswd.getString("price");
+	        connection.close();
+        } catch (Exception exception) {
+	        exception.printStackTrace();
+	        queryCount = "0";
+	    }
+        JLabel chairPrice = new JLabel("Price: $" + queryCount);
         chairPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
         chairPrice.setBounds(200, 215, 1000, 75);
+        
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
+            Statement statement = connection.createStatement();
+            ResultSet ddpswd = statement.executeQuery("SELECT * FROM stores WHERE storeID = 1");
+            System.out.print(ddpswd.next());
+            queryCount = "" + ddpswd.getString("quantity");
+            connection.close();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            queryCount = "0";
+        }
+        JLabel chairQuantity = new JLabel("Quantity: " + queryCount); 
+        chairQuantity.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        chairQuantity.setBounds(200, 230, 1000, 75);
         JButton chairAdd = new JButton("Add to Cart");
         chairAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
         chairAdd.setBounds(200, 280, 120, 30);
         chairAdd.addActionListener(e -> {
-            shoppingCart.add("Chair");
+            shoppingCart.add("Gaming Chair");
         });
         catalogPanel.add(imgChair2);
         catalogPanel.add(chairDeets);
         catalogPanel.add(chairPrice);
+        catalogPanel.add(chairQuantity);
         catalogPanel.add(chairAdd);
 
         // stuff for keyboard
@@ -554,18 +602,51 @@ public class Login extends JFrame {
         JLabel keyboardDeets = new JLabel("League of Legends Keyboard");
         keyboardDeets.setFont(new Font("Tahoma", Font.PLAIN, 15));
         keyboardDeets.setBounds(200, 440, 1000, 75);
-        JLabel keyboardPrice = new JLabel("Price: €600"); //todo ADD QUERY to UPDATE PRICE
+        try {
+	        Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
+	        Statement statement = connection.createStatement();
+	        ResultSet ddpswd = statement.executeQuery("SELECT * FROM products WHERE productID = 'League of Legends Keyboard'");
+	        System.out.print(ddpswd.next());
+	        queryCount = "" + ddpswd.getString("price");
+	        connection.close();
+        } catch (Exception exception) {
+	        exception.printStackTrace();
+	        queryCount = "0";
+	    }
+        JLabel keyboardPrice = new JLabel("Price: $" + queryCount);
         keyboardPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
         keyboardPrice.setBounds(200, 455, 1000, 75);
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
+            Statement statement = connection.createStatement();
+            ResultSet ddpswd = statement.executeQuery("SELECT * FROM stores WHERE storeID = 4");
+            
+            //String queryusrnm = "";
+            System.out.print(ddpswd.next());
+            
+            queryCount = "" + ddpswd.getString("quantity");
+            //System.out.println("Ture");
+            //System.out.println(queryCount);
+            connection.close();
+            
+            //setContentPane(contentPane);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            queryCount = "0";
+        }
+        JLabel keyboardQuantity = new JLabel("Quantity: " + queryCount);
+        keyboardQuantity.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        keyboardQuantity.setBounds(200, 470, 1000, 75);
         JButton keyboardAdd = new JButton("Add to Cart");
         keyboardAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
         keyboardAdd.setBounds(200, 515, 120, 30);
         keyboardAdd.addActionListener(e -> {
-            shoppingCart.add("Keyboard");
+            shoppingCart.add("League of Legends Keyboard");
         });
         catalogPanel.add(imgKeyboard2);
         catalogPanel.add(keyboardDeets);
         catalogPanel.add(keyboardPrice);
+        catalogPanel.add(keyboardQuantity);
         catalogPanel.add(keyboardAdd);
 
         // stuff for microphone
@@ -575,9 +656,41 @@ public class Login extends JFrame {
         JLabel microDeets = new JLabel("Microphone");
         microDeets.setFont(new Font("Tahoma", Font.PLAIN, 15));
         microDeets.setBounds(450, 200, 1000, 75);
-        JLabel microPrice = new JLabel("Price: €420.69"); //todo ADD QUERY to UPDATE PRICE
+        try {
+	        Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
+	        Statement statement = connection.createStatement();
+	        ResultSet ddpswd = statement.executeQuery("SELECT * FROM products WHERE productID = 'Microphone'");
+	        System.out.print(ddpswd.next());
+	        queryCount = "" + ddpswd.getString("price");
+	        connection.close();
+        } catch (Exception exception) {
+	        exception.printStackTrace();
+	        queryCount = "0";
+	    }
+        JLabel microPrice = new JLabel("Price: $" + queryCount); 
         microPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
         microPrice.setBounds(450, 215, 1000, 75);
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
+            Statement statement = connection.createStatement();
+            ResultSet ddpswd = statement.executeQuery("SELECT * FROM stores WHERE storeID = 2");
+            
+            //String queryusrnm = "";
+            System.out.print(ddpswd.next());
+            
+            queryCount = "" + ddpswd.getString("quantity");
+            //System.out.println("Ture");
+            //System.out.println(queryCount);
+            connection.close();
+            
+            //setContentPane(contentPane);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            queryCount = "0";
+        }
+        JLabel microQuantity = new JLabel("Quantity: "+queryCount);
+        microQuantity.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        microQuantity.setBounds(450, 230, 1000, 75);
         JButton microAdd = new JButton("Add to Cart");
         microAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
         microAdd.setBounds(450, 280, 120, 30);
@@ -587,6 +700,7 @@ public class Login extends JFrame {
         catalogPanel.add(imgMicro2);
         catalogPanel.add(microDeets);
         catalogPanel.add(microPrice);
+        catalogPanel.add(microQuantity);
         catalogPanel.add(microAdd);
 
         // stuff for headset
@@ -596,9 +710,34 @@ public class Login extends JFrame {
         JLabel headsetDeets = new JLabel("Headset");
         headsetDeets.setFont(new Font("Tahoma", Font.PLAIN, 15));
         headsetDeets.setBounds(450, 440, 1000, 75);
-        JLabel headsetPrice = new JLabel("Price: €420.69"); //todo ADD QUERY to UPDATE PRICE
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
+            Statement statement = connection.createStatement();
+            ResultSet ddpswd = statement.executeQuery("SELECT * FROM products WHERE productID = 'Headset'");
+            System.out.print(ddpswd.next());
+            queryCount = "" + ddpswd.getString("price");
+            connection.close();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            queryCount = "0";
+        }
+        JLabel headsetPrice = new JLabel("Price: $" + queryCount); 
         headsetPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
         headsetPrice.setBounds(450, 455, 1000, 75);
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
+            Statement statement = connection.createStatement();
+            ResultSet ddpswd = statement.executeQuery("SELECT * FROM stores WHERE storeID = 5");
+            System.out.print(ddpswd.next());
+            queryCount = "" + ddpswd.getString("quantity");
+            connection.close();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            queryCount = "0";
+        }
+        JLabel headsetQuantity = new JLabel("Quantity: "+queryCount);
+        headsetQuantity.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        headsetQuantity.setBounds(450, 470, 1000, 75);
         JButton headsetAdd = new JButton("Add to Cart");
         headsetAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
         headsetAdd.setBounds(450, 515, 120, 30);
@@ -608,6 +747,7 @@ public class Login extends JFrame {
         catalogPanel.add(imgHeadset2);
         catalogPanel.add(headsetDeets);
         catalogPanel.add(headsetPrice);
+        catalogPanel.add(headsetQuantity);
         catalogPanel.add(headsetAdd);
 
         // stuff for mouse
@@ -617,18 +757,44 @@ public class Login extends JFrame {
         JLabel mouseDeets = new JLabel("Gaming Mouse");
         mouseDeets.setFont(new Font("Tahoma", Font.PLAIN, 15));
         mouseDeets.setBounds(700, 200, 1000, 75);
-        JLabel mousePrice = new JLabel("Price: €420.69"); //todo ADD QUERY to UPDATE PRICE
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
+            Statement statement = connection.createStatement();
+            ResultSet ddpswd = statement.executeQuery("SELECT * FROM products WHERE productID = 'Gaming Chair'");
+            System.out.print(ddpswd.next());
+            queryCount = "" + ddpswd.getString("price");
+            connection.close();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            queryCount = "0";
+        }
+        JLabel mousePrice = new JLabel("Price: $" + queryCount); 
         mousePrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
         mousePrice.setBounds(700, 215, 1000, 75);
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
+            Statement statement = connection.createStatement();
+            ResultSet ddpswd = statement.executeQuery("SELECT * FROM stores WHERE storeID = 3");
+            System.out.print(ddpswd.next());
+            queryCount = "" + ddpswd.getString("quantity");
+            connection.close();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            queryCount = "0";
+        }
+        JLabel mouseQuantity = new JLabel("Quantity: "+queryCount);
+        mouseQuantity.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        mouseQuantity.setBounds(700, 230, 1000, 75);
         JButton mouseAdd = new JButton("Add to Cart");
         mouseAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
         mouseAdd.setBounds(700, 280, 120, 30);
         mouseAdd.addActionListener(e -> {
-            shoppingCart.add("Mouse");
+            shoppingCart.add("Gaming Mouse");
         });
         catalogPanel.add(imgMouse2);
         catalogPanel.add(mouseDeets);
         catalogPanel.add(mousePrice);
+        catalogPanel.add(mouseQuantity);
         catalogPanel.add(mouseAdd);
 
         // stuff for printer
@@ -638,9 +804,34 @@ public class Login extends JFrame {
         JLabel printerDeets = new JLabel("Printer");
         printerDeets.setFont(new Font("Tahoma", Font.PLAIN, 15));
         printerDeets.setBounds(700, 440, 1000, 75);
-        JLabel printerPrice = new JLabel("Price: €600"); //todo ADD QUERY to UPDATE PRICE
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
+            Statement statement = connection.createStatement();
+            ResultSet ddpswd = statement.executeQuery("SELECT * FROM products WHERE productID = 'Printer'");
+            System.out.print(ddpswd.next());
+            queryCount = "" + ddpswd.getString("price");
+            connection.close();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            queryCount = "0";
+        }
+        JLabel printerPrice = new JLabel("Price: $" + queryCount);
         printerPrice.setFont(new Font("Tahoma", Font.PLAIN, 15));
         printerPrice.setBounds(700, 455, 1000, 75);
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
+            Statement statement = connection.createStatement();
+            ResultSet ddpswd = statement.executeQuery("SELECT * FROM stores WHERE storeID = 6");
+            System.out.print(ddpswd.next());
+            queryCount = "" + ddpswd.getString("quantity");
+            connection.close();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            queryCount = "0";
+        }
+        JLabel printerQuantity = new JLabel("Quantity: " + queryCount);
+        printerQuantity.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        printerQuantity.setBounds(700, 470, 1000, 75);
         JButton printerAdd = new JButton("Add to Cart");
         printerAdd.setFont(new Font("Tahoma", Font.PLAIN, 15));
         printerAdd.setBounds(700, 515, 120, 30);
@@ -650,6 +841,7 @@ public class Login extends JFrame {
         catalogPanel.add(imgPrinter2);
         catalogPanel.add(printerDeets);
         catalogPanel.add(printerPrice);
+        catalogPanel.add(printerQuantity);
         catalogPanel.add(printerAdd);
 
         JButton checkout = new JButton("Checkout");
@@ -685,8 +877,46 @@ public class Login extends JFrame {
         // display total prices
         // todo make this get prices
         double total = 0;
+        String queryCount = "";
+        String pid = "";
         for (int i = 0; i < shoppingCart.size(); i++) {
-            total += 420.69;
+        	 try {
+                 Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
+                 Statement statement = connection.createStatement();
+                 ResultSet ddpswd = statement.executeQuery("SELECT * FROM products WHERE productID = '"+ shoppingCart.get(i) +"'");
+                 System.out.print(ddpswd.next());
+                 queryCount = "" + ddpswd.getString("price");
+                 connection.close();
+             } catch (Exception exception) {
+                 exception.printStackTrace();
+                 queryCount = "0";
+             }
+            total += 10 ;//Double.parseDouble( queryCount);
+            System.out.println("1");
+            try {
+                Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
+                Statement statement = connection.createStatement();
+                ResultSet ddpswd = statement.executeQuery("SELECT * FROM STORES WHERE productID = '"+ shoppingCart.get(i) +"'");
+                System.out.print(ddpswd.next());
+                queryCount = "" + ddpswd.getString("quantity");
+                connection.close();
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                queryCount = "0";
+            }
+            System.out.println("2");
+            try {
+                Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
+                Statement statement = connection.createStatement();
+                ResultSet ddpswd = statement.executeQuery("UPDATE stores SET quantity = "+(Integer.parseInt(queryCount)-1) +" WHERE productID = '"+ shoppingCart.get(i) +"'");
+                System.out.print(ddpswd.next());
+                //queryCount = "" + ddpswd.getString("price");
+                connection.close();
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                queryCount = "0";
+            }
+            System.out.println("3");
         }
         JLabel totalLabel = new JLabel("Total Cost: " + total);
         totalLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -707,6 +937,97 @@ public class Login extends JFrame {
         cartPanel.add(checkout);
 
         return cartPanel;
+    }
+
+    // purchase history
+    private JPanel purchaseHistoryPanel() {
+        JPanel historyPanel = new JPanel();
+        historyPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        historyPanel.setBounds(new Rectangle(1014, 800));
+        historyPanel.setLayout(null);
+
+        // history header
+        JLabel headerLabel = new JLabel("Your 5 most recent purchases:");
+        headerLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
+        headerLabel.setBounds(280, -10, 1000, 75);
+        historyPanel.add(headerLabel);
+
+        JLabel itemsLabel = new JLabel("Items:");
+        itemsLabel.setFont(new Font("Tahoma", Font.PLAIN, 25));
+        itemsLabel.setBounds(100, 50, 1000, 75);
+        historyPanel.add(itemsLabel);
+
+        JLabel totalLabel = new JLabel("Total:");
+        totalLabel.setFont(new Font("Tahoma", Font.PLAIN, 25));
+        totalLabel.setBounds(500, 50, 1000, 75);
+        historyPanel.add(totalLabel);
+
+        // todo update this with results from the query, break loop early if there isnt 5 recent purchases
+        for (int i = 0; i < 5; i++) {
+            JLabel tempItems = new JLabel("PLACEHOLDER");
+            tempItems.setFont(new Font("Tahoma", Font.PLAIN, 20));
+            tempItems.setBounds(100, 100 + (30 * i), 1000, 75);
+            historyPanel.add(tempItems);
+
+            JLabel tempPrice = new JLabel("PLACEHOLDER PRICE");
+            tempPrice.setFont(new Font("Tahoma", Font.PLAIN, 20));
+            tempPrice.setBounds(500, 100 + (30 * i), 1000, 75);
+            historyPanel.add(tempPrice);
+        }
+
+        JButton returnButton = new JButton("Return to Menu");
+        returnButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        returnButton.setBounds(370, 420, 250, 75);
+        returnButton.addActionListener(e -> {
+            setContentPane(contentPane);
+        });
+        historyPanel.add(returnButton);
+
+        return historyPanel;
+    }
+    
+        // update account info
+    private JPanel updateAccount() {
+        JPanel infoPanel = new JPanel();
+        infoPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+        infoPanel.setBounds(new Rectangle(1014, 597));
+        infoPanel.setLayout(null);
+
+        // header
+        JLabel headerLabel = new JLabel("Update Account Information:");
+        headerLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
+        headerLabel.setBounds(320, 0, 1000, 75);
+        infoPanel.add(headerLabel);
+
+        // email Global
+        JTextField nameField = new JTextField("Name");
+        nameField.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        nameField.setBounds(335, 100, 420, 30);
+        infoPanel.add(nameField);
+
+        // customer name
+        JTextField pwField = new JTextField("Password");
+        pwField.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        pwField.setBounds(335, 140, 420, 30);
+        infoPanel.add(pwField);
+
+        // mobile number
+        JTextField mobileNumberLabel = new JTextField("Mobile Number");
+        mobileNumberLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        mobileNumberLabel.setBounds(335, 180, 420, 30);
+        infoPanel.add(mobileNumberLabel);
+
+        // update button
+        JButton updateButton = new JButton("Confirm Updates");
+        updateButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        updateButton.setBounds(420, 250, 250, 75);
+        updateButton.addActionListener(e -> {
+            // todo make this update stuff
+            setContentPane(contentPane);
+        });
+        infoPanel.add(updateButton);
+
+        return infoPanel;
     }
 
 }
