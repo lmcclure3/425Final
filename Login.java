@@ -879,6 +879,7 @@ public class Login extends JFrame {
         // todo make this get prices
         double total = 0;
         String queryCount = "";
+        String maxSaleID = "";
         String pid = "";
         for (int i = 0; i < shoppingCart.size(); i++) {
         	 try {
@@ -889,11 +890,13 @@ public class Login extends JFrame {
                  queryCount = "" + ddpswd.getString("price");
                  connection.close();
              } catch (Exception exception) {
+            	 System.out.print("6");
+            	 
                  exception.printStackTrace();
                  queryCount = "0";
              }
-            total += 10 ;//Double.parseDouble( queryCount);
-            System.out.println("1");
+            total += Double.parseDouble( queryCount);
+            
             try {
                 Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
                 Statement statement = connection.createStatement();
@@ -902,22 +905,65 @@ public class Login extends JFrame {
                 queryCount = "" + ddpswd.getString("quantity");
                 connection.close();
             } catch (Exception exception) {
+            	System.out.print("5");
                 exception.printStackTrace();
                 queryCount = "0";
             }
-            System.out.println("2");
+            
             try {
                 Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
                 Statement statement = connection.createStatement();
                 ResultSet ddpswd = statement.executeQuery("UPDATE stores SET quantity = "+(Integer.parseInt(queryCount)-1) +" WHERE productID = '"+ shoppingCart.get(i) +"'");
+                //System.out.print(ddpswd.next());
+                
+                //queryCount = "" + ddpswd.getString("price");
+                connection.close();
+            } catch (Exception exception) {
+            	System.out.print("4");
+                exception.printStackTrace();
+                queryCount = "0";
+                
+            }
+            try {
+                Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
+                Statement statement = connection.createStatement();
+                ResultSet ddpswd = statement.executeQuery("UPDATE sales SET quantity = "+(Integer.parseInt(queryCount)-1) +" WHERE productID = '"+ shoppingCart.get(i) +"'");
+                
+                //queryCount = "" + ddpswd.getString("price");
+                connection.close();
+            } catch (Exception exception) {
+            	System.out.print("3");
+                exception.printStackTrace();
+                queryCount = "0";
+                
+            }
+           
+            try {
+                Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
+                Statement statement = connection.createStatement();
+                ResultSet ddpswd = statement.executeQuery("SELECT saleID from sales ORDER BY saleID DESC");
+                System.out.print(ddpswd.next());
+                maxSaleID = ddpswd.getString("saleID");
+                //queryCount = "" + ddpswd.getString("price");
+                connection.close();
+            } catch (Exception exception) {
+            	System.out.print("2");
+                exception.printStackTrace();
+              
+            }
+            //INSERT INTO "HR"."sales" (saleID, productID, quantity, saleDate, storeID, customerID,shipperID) VALUES (saleID, productID, quantity, saleDate, storeID, customerID,shipperID);
+            try {
+                Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
+                Statement statement = connection.createStatement();
+                ResultSet ddpswd = statement.executeQuery("INSERT INTO \"HR\".\"SALES\" (SALEID, PRODUCTID, QUANTITY, CUSTOMERID) VALUES ("+ (Integer.parseInt(maxSaleID)+1) +", '"+shoppingCart.get(i)+"', 1, '"+ GlobalUsername +"')");
                 System.out.print(ddpswd.next());
                 //queryCount = "" + ddpswd.getString("price");
                 connection.close();
             } catch (Exception exception) {
+            	System.out.print("1");
                 exception.printStackTrace();
-                queryCount = "0";
+              
             }
-            System.out.println("3");
         }
         JLabel totalLabel = new JLabel("Total Cost: " + total);
         totalLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -964,17 +1010,34 @@ public class Login extends JFrame {
         historyPanel.add(totalLabel);
 
         // todo update this with results from the query, break loop early if there isnt 5 recent purchases
-        for (int i = 0; i < 5; i++) {
-            JLabel tempItems = new JLabel("PLACEHOLDER");
-            tempItems.setFont(new Font("Tahoma", Font.PLAIN, 20));
-            tempItems.setBounds(100, 100 + (30 * i), 1000, 75);
-            historyPanel.add(tempItems);
-
-            JLabel tempPrice = new JLabel("PLACEHOLDER PRICE");
-            tempPrice.setFont(new Font("Tahoma", Font.PLAIN, 20));
-            tempPrice.setBounds(500, 100 + (30 * i), 1000, 75);
-            historyPanel.add(tempPrice);
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/ORCL","hr","oracle");
+            Statement statement = connection.createStatement();
+            ResultSet ddpswd = statement.executeQuery("SELECT * from sales where customerID = '"+GlobalUsername+"' ORDER BY saleID DESC");
+            //ddpswd.next();
+            //maxSaleID = ddpswd.getString("saleID");
+            //queryCount = "" + ddpswd.getString("price");
+            String product = "";
+            for (int i = 0; i < 5 && ddpswd.next(); i++) {
+            	product = ddpswd.getString("ProductID");
+                JLabel tempItems = new JLabel(product);
+                tempItems.setFont(new Font("Tahoma", Font.PLAIN, 20));
+                tempItems.setBounds(100, 100 + (30 * i), 1000, 75);
+                historyPanel.add(tempItems);
+                Statement statement2 = connection.createStatement();
+                ResultSet price = statement2.executeQuery("SELECT * from products where productID = '"+ product +"'");
+                price.next();
+                JLabel tempPrice = new JLabel(price.getString("price"));
+                tempPrice.setFont(new Font("Tahoma", Font.PLAIN, 20));
+                tempPrice.setBounds(500, 100 + (30 * i), 1000, 75);
+                historyPanel.add(tempPrice);
+            }
+            connection.close();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+          
         }
+        
 
         JButton returnButton = new JButton("Return to Menu");
         returnButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
