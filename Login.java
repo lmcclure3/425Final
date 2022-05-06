@@ -516,12 +516,12 @@ public class Login extends JFrame {
                 //String queryusrnm = "";
                 
                 int x = statement.executeUpdate("DELETE FROM customers WHERE customerID = '" + GlobalUsername +"'");
-                
-               
-                
+                GlobalUsername = "null";
+                GlobalPhoneNumber = "null";
+                GlobalFirstName = "null";
                 System.out.println("Poggers!");
                 connection.close();
-                //setContentPane(contentPane);
+                setContentPane(contentPane);
             } catch (Exception exception) {
                  exception.printStackTrace();
             }
@@ -1087,7 +1087,8 @@ public class Login extends JFrame {
         updateButton.setBounds(420, 250, 250, 75);
         updateButton.addActionListener(e -> {
             // todo make this update stuff
-            setContentPane(contentPane);
+        	GlobalPhoneNumber = (mobileNumberLabel.getText());
+        	setContentPane(contentPane);
         });
         infoPanel.add(updateButton);
 
